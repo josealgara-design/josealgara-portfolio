@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Jose Algara - Supply Chain Transformation | Executive Coaching',
+  title: 'Jose Algara - Supply Chain | Executive Growth',
   description: 'VP Supply Chain leader with 15+ years building transformative technology solutions',
 }
 
