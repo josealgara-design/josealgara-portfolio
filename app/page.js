@@ -729,7 +729,7 @@ export default function Portfolio() {
       <footer className="border-t border-slate-800 py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-slate-600 text-sm">© 2025 Jose Algara. Supply Chain & Product Leadership.</p>
+            <p className="text-slate-600 text-sm">© 2025 Jose Algara. Executive Coach | Supply Chain Transformation.</p>
             <div className="flex gap-6">
               <a href="https://www.linkedin.com/in/jose-algara/" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-400 transition-colors">
                 <Linkedin size={20} />
