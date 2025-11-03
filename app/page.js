@@ -138,11 +138,11 @@ export default function Portfolio() {
                 VP Supply Chain & Inventory Management
               </div>
               <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">Supply Chain</span>
-                <br /><span className="text-white">Reimagined</span>
+                <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">Operations as </span>
+                <br /><span className="text-white">Strategic Advantage</span>
               </h1>
               <p className="text-lg text-slate-300 leading-relaxed">
-                Building transformative technology solutions across Fortune 500 companies and scaling startups. From Amazon to Nordstrom, delivering measurable results through strategic operations excellence.
+                Over 20 years building and scaling startups and Fortune 500 companies, I've specialized in operations, supply chain, logistics, and inventory management. I've learned that lasting change requires more than technology—it demands a comprehensive approach. I coach people to become leaders who scale teams from 1 to 300+. I reimagine processes through innovation and emerging technologies. And I deploy cutting-edge solutions that turn supply chain into competitive advantage. Engineering foundation, MBA strategic thinking, and a proven track record of multi-million dollar results.
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
                 <div className="flex items-center gap-2 text-sm text-slate-400">
