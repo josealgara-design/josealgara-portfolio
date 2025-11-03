@@ -142,7 +142,7 @@ export default function Portfolio() {
                 <br /><span className="text-white">Reimagined</span>
               </h1>
               <p className="text-lg text-slate-300 leading-relaxed">
-                Building transformative technology solutions across Fortune 500 companies and scaling startups. From Amazon to Nordstrom, delivering measurable results through strategic operations excellence.
+                Twenty years building and scaling operations across startups and Fortune 500 companies—specializing in supply chain, logistics, and inventory management—taught me this: lasting transformation requires more than technology. I coach people to become leaders who scale teams from 1 to 300+. I reimagine processes through innovation and emerging tech. And I deploy cutting-edge solutions that create competitive advantage. Engineering precision, MBA strategy, multi-million dollar results.
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
                 <div className="flex items-center gap-2 text-sm text-slate-400">
