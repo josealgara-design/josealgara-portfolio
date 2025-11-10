@@ -6,18 +6,42 @@ import { ArrowRight, Send, Mail, Phone, Linkedin } from 'lucide-react';
 export default function Portfolio() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = () => {
-    if (formData.name && formData.email) {
-      setSubmitted(true);
-      setTimeout(() => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mpwkabbg', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
-        setSubmitted(false);
-      }, 3000);
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        alert('Something went wrong. Please try emailing directly at jose.algara@gmail.com');
+      }
+    } catch (error) {
+      alert('Something went wrong. Please try emailing directly at jose.algara@gmail.com');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -254,14 +278,15 @@ export default function Portfolio() {
           {/* Contact Form */}
           <div className="border-t border-gray-200 pt-16">
             <h3 className="text-xl font-medium mb-8">Send a Message</h3>
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm text-gray-600 mb-2">Name</label>
                 <input 
                   type="text" 
                   name="name" 
                   value={formData.name} 
-                  onChange={handleInputChange} 
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-3 border border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
                 />
               </div>
@@ -271,7 +296,8 @@ export default function Portfolio() {
                   type="email" 
                   name="email" 
                   value={formData.email} 
-                  onChange={handleInputChange} 
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-3 border border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
                 />
               </div>
@@ -281,21 +307,25 @@ export default function Portfolio() {
                   name="message" 
                   rows="6" 
                   value={formData.message} 
-                  onChange={handleInputChange} 
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-3 border border-gray-200 focus:border-gray-400 focus:outline-none resize-none transition-colors"
                 />
               </div>
               <button 
-                onClick={handleSubmit} 
+                type="submit"
+                disabled={submitting}
                 className={`w-full px-6 py-4 text-sm font-medium transition-colors ${
                   submitted 
                     ? 'bg-green-600 text-white' 
+                    : submitting
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
                     : 'bg-black text-white hover:bg-gray-800'
                 }`}
               >
-                {submitted ? '✓ Message Sent' : 'Send Message'}
+                {submitted ? '✓ Message Sent' : submitting ? 'Sending...' : 'Send Message'}
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </section>
