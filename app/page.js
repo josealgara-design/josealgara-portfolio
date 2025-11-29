@@ -122,10 +122,10 @@ export default function Portfolio() {
             <div className="lg:col-span-7">
               <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                 <p>
-                  Twenty years optimizing supply chain and inventory management across apparel, general merchandise, and grocery retail. I've built technology solutions for Fortune 500 companies—Amazon, Nordstrom, Maersk—and scaled startups from inception to acquisition.
+                  With 20+ years optimizing supply chains, leading digital transformations and building technology for companies like Amazon, Nordstrom, A.P. Moeller Maersk and Flexport, I help companies turn their supply chains into a strategic advantage.
                 </p>
                 <p>
-                  Leading operations across 12 countries taught me this: lasting transformation requires multi-year vision built incrementally with laser-focused execution. Today, I leverage AI to modernize supply chains—optimizing the flow of merchandise from manufacturing floors to customers' hands.
+                  Launching companies and leading operations across 12 countries taught me this: lasting transformation requires multi-year vision built incrementally with laser-focused execution. Today, I leverage AI to modernize supply chains—optimizing the flow of merchandise from manufacturing floors to customers' hands.
                 </p>
                 <p>
                   I create solutions that scale with growth and pivot with change, turning operational complexity into competitive advantage.
