@@ -1,19 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, Send, Mail, Phone, Linkedin, Package, Truck, Network, Users, Briefcase, Target, ClipboardCheck, Award, BarChart, Brain, Cpu, Zap, BookOpen, Calendar, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Send, Mail, Phone, Linkedin, BookOpen, Calendar, Clock } from 'lucide-react';
 
 export default function Portfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-
-  const testimonials = [
-    "Reduced inventory carrying costs by 28% while improving stock availability",
-    "Transformed supply chain from reactive to proactive, cutting lead times in half",
-    "Delivered measurable ROI within the first quarter"
-  ];
+  const [submitting, setSubmitting] = useState(false);
 
   // Blog posts data
   const blogPosts = [
@@ -43,24 +36,40 @@ export default function Portfolio() {
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   const handleInputChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = () => {
-    if (formData.name && formData.email) {
-      setSubmitted(true);
-      setTimeout(() => {
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setSubmitted(false);
-      }, 3000);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      // Replace YOUR_FORM_ID with your actual Formspree form ID
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        alert('Something went wrong. Please try emailing directly at jose.algara@gmail.com');
+      }
+    } catch (error) {
+      alert('Something went wrong. Please try emailing directly at jose.algara@gmail.com');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -68,391 +77,359 @@ export default function Portfolio() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMenuOpen(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans overflow-hidden">
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-black to-slate-900 pointer-events-none" />
-      <div className="fixed inset-0 opacity-10 pointer-events-none" style={{backgroundImage: `radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%)`}} />
-
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/90 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <div className="text-xl sm:text-2xl font-bold text-white">JOSE ALGARA</div>
-          <div className="hidden md:flex gap-8">
-            <button onClick={() => scrollToSection('services')} className="text-sm font-medium hover:text-blue-400 transition-colors">Services</button>
-            <button onClick={() => scrollToSection('blog')} className="text-sm font-medium hover:text-blue-400 transition-colors">Blog</button>
-            <button onClick={() => scrollToSection('experience')} className="text-sm font-medium hover:text-blue-400 transition-colors">About</button>
-            <button onClick={() => scrollToSection('contact')} className="text-sm font-medium hover:text-blue-400 transition-colors">Contact</button>
-          </div>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2" aria-label="Toggle menu">
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Simple Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-6 py-6 flex justify-between items-center">
+          <button onClick={() => scrollToSection('hero')} className="text-xl font-medium">
+            Jose Algara
           </button>
-        </div>
-        {isMenuOpen && (
-          <div className="md:hidden bg-black/95 border-t border-slate-800 p-4">
-            <button onClick={() => scrollToSection('services')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400">Services</button>
-            <button onClick={() => scrollToSection('supply-chain')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400 pl-4">→ Supply Chain Transformation</button>
-            <button onClick={() => scrollToSection('coaching')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400 pl-4">→ Executive Coaching</button>
-            <button onClick={() => scrollToSection('assessment')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400 pl-4">→ Maturity Assessment</button>
-            <button onClick={() => scrollToSection('ai-strategy')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400 pl-4">→ AI Strategy</button>
-            <button onClick={() => scrollToSection('blog')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400">Blog</button>
-            <button onClick={() => scrollToSection('experience')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400">Experience</button>
-            <button onClick={() => scrollToSection('contact')} className="block w-full text-left py-3 text-sm font-medium hover:text-blue-400">Contact</button>
+          <div className="flex gap-8">
+            <button onClick={() => scrollToSection('services')} className="text-sm hover:text-gray-600 transition-colors">What I Do</button>
+            <button onClick={() => scrollToSection('blog')} className="text-sm hover:text-gray-600 transition-colors">Insights</button>
+            <button onClick={() => scrollToSection('experience')} className="text-sm hover:text-gray-600 transition-colors">Experience</button>
+            <button onClick={() => scrollToSection('contact')} className="text-sm hover:text-gray-600 transition-colors">Contact</button>
           </div>
-        )}
+        </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative pt-24 sm:pt-32 pb-16 px-4 sm:px-6 min-h-screen flex items-center">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">Operations Drive</span>
-                <br /><span className="text-white">Growth</span>
-              </h1>
-              <p className="text-lg text-slate-300 leading-relaxed">
-                Twenty years optimizing supply chain and inventory management across apparel, general merchandise, and grocery retail. I've built technology solutions for Fortune 500 companies—Amazon, Nordstrom, Maersk—and scaled startups from inception to acquisition. Leading operations across 12 countries taught me this: lasting transformation requires multi-year vision built incrementally with laser-focused execution. Today, I leverage AI to modernize supply chains—optimizing the flow of merchandise from manufacturing floors to customers' hands. I create solutions that scale with growth and pivot with change, turning operational complexity into competitive advantage.
+      {/* Hero - Simple and Personal */}
+      <section id="hero" className="pt-40 pb-32 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="mb-12">
+            <img 
+              src="/image.png" 
+              alt="Jose Algara" 
+              className="w-32 h-32 rounded-full object-cover mb-8 border-2 border-gray-100"
+            />
+          </div>
+          <h1 className="text-5xl sm:text-6xl font-light leading-tight mb-8">
+            Operations Drive Growth
+          </h1>
+          <div className="space-y-6 text-xl text-gray-600 leading-relaxed mb-12">
+            <p>
+              Twenty years optimizing supply chain and inventory management across apparel, general merchandise, and grocery retail. I've built technology solutions for Fortune 500 companies—Amazon, Nordstrom, Maersk—and scaled startups from inception to acquisition.
+            </p>
+            <p>
+              Leading operations across 12 countries taught me this: lasting transformation requires multi-year vision built incrementally with laser-focused execution. Today, I leverage AI to modernize supply chains—optimizing the flow of merchandise from manufacturing floors to customers' hands.
+            </p>
+            <p>
+              I create solutions that scale with growth and pivot with change, turning operational complexity into competitive advantage.
+            </p>
+          </div>
+          <div className="flex gap-4">
+            <button 
+              onClick={() => scrollToSection('contact')} 
+              className="px-6 py-3 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
+            >
+              Let's work together
+            </button>
+            <a 
+              href="https://www.linkedin.com/in/jose-algara/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-6 py-3 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* What I Do */}
+      <section id="services" className="py-32 px-6 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-light mb-16">What I Do</h2>
+          
+          <div className="space-y-20">
+            {/* Service 1 */}
+            <div>
+              <div className="flex items-baseline gap-4 mb-4">
+                <span className="text-sm text-gray-400 font-mono">01</span>
+                <h3 className="text-2xl font-medium">Supply Chain Transformation</h3>
+              </div>
+              <p className="text-gray-600 leading-relaxed pl-12">
+                Leading transformations at Nordstrom, Maersk, and Flexport. Built enterprise systems delivering multi-million dollar savings while improving service levels. I specialize in network optimization, technology implementation, and change management. Results include 28% inventory cost reduction and near-doubling of on-time delivery rates.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button onClick={() => scrollToSection('contact')} className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-400 text-black font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-2">
-                  Let's Talk <ArrowRight size={20} />
-                </button>
-                <a href="https://www.linkedin.com/in/jose-algara/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-slate-600 rounded-lg font-semibold hover:border-blue-400 transition-colors flex items-center justify-center gap-2">
-                  <Linkedin size={20} /> LinkedIn
-                </a>
-              </div>
             </div>
-            <div className="hidden md:flex h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 items-center justify-center">
-              <div className="text-6xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">JA</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Services Overview */}
-      <section id="services" className="relative py-20 px-4 sm:px-6 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-bold text-center mb-12">Transform Your Operations</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Package, color: 'from-blue-400 to-blue-500', title: 'Supply Chain Transformation', desc: 'End-to-end optimization', sectionId: 'supply-chain' },
-              { icon: Users, color: 'from-cyan-400 to-cyan-500', title: 'Executive Coaching', desc: 'Leadership development', sectionId: 'coaching' },
-              { icon: ClipboardCheck, color: 'from-sky-400 to-sky-500', title: 'Maturity Assessment', desc: 'Capability evaluation', sectionId: 'assessment' },
-              { icon: Brain, color: 'from-indigo-400 to-indigo-500', title: 'AI Strategy', desc: 'Intelligent automation', sectionId: 'ai-strategy' }
-            ].map((service, i) => (
-              <article key={i} onClick={() => scrollToSection(service.sectionId)} className="group p-6 border border-slate-700 rounded-xl hover:border-blue-400 transition-all hover:bg-slate-900/50 cursor-pointer">
-                <div className={`bg-gradient-to-r ${service.color} w-16 h-16 rounded-lg flex items-center justify-center mb-4`}>
-                  <service.icon className="text-white" size={32} strokeWidth={2} />
-                </div>
-                <h3 className="text-lg font-bold mb-3 group-hover:text-blue-400 transition-colors">{service.title}</h3>
-                <p className="text-sm text-slate-400 mb-4">{service.desc}</p>
-                <span className="text-blue-400 text-sm font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">Learn More <ArrowRight size={16} /></span>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Supply Chain Section */}
-      <section id="supply-chain" className="relative py-20 px-4 sm:px-6 bg-slate-900/30 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            <div className="h-96 bg-gradient-to-br from-blue-500/20 to-blue-400/10 rounded-2xl border border-blue-500/30 flex items-center justify-center">
-              <Package className="text-blue-400" size={120} strokeWidth={1.5} />
-            </div>
+            {/* Service 2 */}
             <div>
-              <h2 className="text-4xl font-bold mb-4">Supply Chain Transformation</h2>
-              <p className="text-xl text-blue-400 font-semibold mb-6">Turn challenges into competitive advantages</p>
-              <p className="text-slate-300 mb-4">Leading transformations at Nordstrom, Maersk, and Flexport. Built enterprise systems delivering multi-million dollar savings.</p>
-              <button onClick={() => scrollToSection('contact')} className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-400 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2">
-                Get Started <ArrowRight size={20} />
-              </button>
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6 mb-8">
-            {[
-              { icon: Network, title: 'Network Optimization', desc: 'Streamline end-to-end operations' },
-              { icon: Truck, title: 'Tech Enablement', desc: 'Enterprise system implementation' },
-              { icon: Users, title: 'Change Management', desc: 'Team restructuring and growth' }
-            ].map((point, i) => (
-              <div key={i} className="p-6 border border-slate-700 rounded-xl hover:border-blue-400 transition-all hover:bg-slate-900/50">
-                <point.icon className="text-blue-400 mb-3" size={40} strokeWidth={1.5} />
-                <h4 className="font-bold mb-2">{point.title}</h4>
-                <p className="text-sm text-slate-400">{point.desc}</p>
+              <div className="flex items-baseline gap-4 mb-4">
+                <span className="text-sm text-gray-400 font-mono">02</span>
+                <h3 className="text-2xl font-medium">Executive Coaching</h3>
               </div>
-            ))}
-          </div>
-          <div className="bg-blue-500/10 border-2 border-blue-500/50 rounded-xl p-8 text-center">
-            <p className="text-xl font-medium italic">"{testimonials[activeTestimonial]}"</p>
-            <div className="flex justify-center gap-2 mt-4">
-              {testimonials.map((_, i) => (
-                <div key={i} className={`w-2 h-2 rounded-full ${i === activeTestimonial ? 'bg-blue-400 w-8' : 'bg-blue-400/30'}`} />
-              ))}
+              <p className="text-gray-600 leading-relaxed pl-12">
+                Real-world experience building teams from 1 to 300+ people across Amazon, Maersk, and Flexport. I help leaders develop executive presence, strategic thinking, and the skills to drive organizational transformation. My approach is practical, not theoretical — battle-tested insights from scaling global operations.
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Executive Coaching */}
-      <section id="coaching" className="relative py-20 px-4 sm:px-6 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-4xl font-bold mb-4">Executive Coaching</h2>
-              <p className="text-xl text-cyan-400 font-semibold mb-6">Elevate your leadership impact</p>
-              <p className="text-slate-300 mb-4">Experience building teams from 1 to 300+ people. Helping leaders develop executive presence and strategic thinking.</p>
-              <button onClick={() => scrollToSection('contact')} className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-cyan-400 text-black font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all inline-flex items-center gap-2">
-                Get Started <ArrowRight size={20} />
-              </button>
-            </div>
-            <div className="h-96 bg-gradient-to-br from-cyan-500/20 to-cyan-400/10 rounded-2xl border border-cyan-500/30 flex items-center justify-center order-1 lg:order-2">
-              <Users className="text-cyan-400" size={120} strokeWidth={1.5} />
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6 mb-8">
-            {[
-              { icon: Target, title: 'Strategic Clarity', desc: 'Define and communicate vision' },
-              { icon: Briefcase, title: 'Executive Presence', desc: 'Build influence and confidence' },
-              { icon: Award, title: 'Career Growth', desc: 'Navigate transitions' }
-            ].map((point, i) => (
-              <div key={i} className="p-6 border border-slate-700 rounded-xl hover:border-cyan-400 transition-all hover:bg-slate-900/50">
-                <point.icon className="text-cyan-400 mb-3" size={40} strokeWidth={1.5} />
-                <h4 className="font-bold mb-2">{point.title}</h4>
-                <p className="text-sm text-slate-400">{point.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="bg-cyan-500/10 border-2 border-cyan-500/50 rounded-xl p-8 text-center">
-            <p className="text-xl font-medium italic">"Built world-class teams from inception to hundreds, scaling delivery excellence"</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Maturity Assessment */}
-      <section id="assessment" className="relative py-20 px-4 sm:px-6 bg-slate-900/30 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            <div className="h-96 bg-gradient-to-br from-sky-500/20 to-sky-400/10 rounded-2xl border border-sky-500/30 flex items-center justify-center">
-              <ClipboardCheck className="text-sky-400" size={120} strokeWidth={1.5} />
-            </div>
+            {/* Service 3 */}
             <div>
-              <h2 className="text-4xl font-bold mb-4">Maturity Assessment</h2>
-              <p className="text-xl text-sky-400 font-semibold mb-6">Benchmark and chart your path forward</p>
-              <p className="text-slate-300 mb-4">Comprehensive evaluation framework developed through work with organizations at all stages.</p>
-              <button onClick={() => scrollToSection('contact')} className="px-8 py-3 bg-gradient-to-r from-sky-500 to-sky-400 text-black font-semibold rounded-lg hover:shadow-lg hover:shadow-sky-500/50 transition-all inline-flex items-center gap-2">
-                Get Started <ArrowRight size={20} />
-              </button>
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6 mb-8">
-            {[
-              { icon: BarChart, title: 'Deep Analysis', desc: 'Comprehensive operational evaluation' },
-              { icon: Award, title: 'Benchmarking', desc: 'Compare against best-in-class' },
-              { icon: Target, title: 'Strategic Roadmap', desc: 'Prioritized initiatives with ROI' }
-            ].map((point, i) => (
-              <div key={i} className="p-6 border border-slate-700 rounded-xl hover:border-sky-400 transition-all hover:bg-slate-900/50">
-                <point.icon className="text-sky-400 mb-3" size={40} strokeWidth={1.5} />
-                <h4 className="font-bold mb-2">{point.title}</h4>
-                <p className="text-sm text-slate-400">{point.desc}</p>
+              <div className="flex items-baseline gap-4 mb-4">
+                <span className="text-sm text-gray-400 font-mono">03</span>
+                <h3 className="text-2xl font-medium">Operational Maturity Assessment</h3>
               </div>
-            ))}
+              <p className="text-gray-600 leading-relaxed pl-12">
+                Comprehensive evaluation framework to identify gaps, benchmark against industry leaders, and build prioritized roadmaps. Data-driven insights backed by qualitative expertise to help you understand where you are and chart the path forward with clear ROI expectations.
+              </p>
+            </div>
+
+            {/* Service 4 */}
+            <div>
+              <div className="flex items-baseline gap-4 mb-4">
+                <span className="text-sm text-gray-400 font-mono">04</span>
+                <h3 className="text-2xl font-medium">AI & Automation Strategy</h3>
+              </div>
+              <p className="text-gray-600 leading-relaxed pl-12">
+                Led implementation of AI-powered demand forecasting and optimization engines. I help identify highest-value automation opportunities, deploy solutions with quick wins, and build responsible AI systems that scale. Focus on business value, not technology for its own sake.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* AI Strategy */}
-      <section id="ai-strategy" className="relative py-20 px-4 sm:px-6 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-4xl font-bold mb-4">AI & Automation Strategy</h2>
-              <p className="text-xl text-indigo-400 font-semibold mb-6">Harness intelligent technology for advantage</p>
-              <p className="text-slate-300 mb-4">Led AI-powered demand forecasting and optimization engines. Helping identify high-impact automation opportunities.</p>
-              <button onClick={() => scrollToSection('contact')} className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-indigo-400 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-indigo-500/50 transition-all inline-flex items-center gap-2">
-                Get Started <ArrowRight size={20} />
-              </button>
-            </div>
-            <div className="h-96 bg-gradient-to-br from-indigo-500/20 to-indigo-400/10 rounded-2xl border border-indigo-500/30 flex items-center justify-center order-1 lg:order-2">
-              <Brain className="text-indigo-400" size={120} strokeWidth={1.5} />
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6 mb-8">
-            {[
-              { icon: Target, title: 'Use Case ID', desc: 'Find highest-value opportunities' },
-              { icon: Cpu, title: 'Implementation', desc: 'Deploy solutions with quick wins' },
-              { icon: Zap, title: 'Optimization', desc: 'Build responsible AI systems' }
-            ].map((point, i) => (
-              <div key={i} className="p-6 border border-slate-700 rounded-xl hover:border-indigo-400 transition-all hover:bg-slate-900/50">
-                <point.icon className="text-indigo-400 mb-3" size={40} strokeWidth={1.5} />
-                <h4 className="font-bold mb-2">{point.title}</h4>
-                <p className="text-sm text-slate-400">{point.desc}</p>
-              </div>
-            ))}
+      {/* My Approach */}
+      <section className="py-32 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-light mb-8">My Approach</h2>
+          <div className="prose prose-lg max-w-none">
+            <p className="text-gray-600 leading-relaxed mb-6">
+              I've found that the most successful supply chain transformations happen when we address three levels simultaneously:
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-6">
+              <strong>People:</strong> I coach leaders to become strategists who can scale teams from 1 to 300+. Building the right culture and capabilities is foundational—technology alone never wins.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-6">
+              <strong>Processes:</strong> I reimagine workflows through innovation and emerging technologies, ensuring operations are both efficient and flexible enough to pivot when markets change.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-6">
+              <strong>Technology:</strong> I deploy cutting-edge solutions—from AI-powered forecasting to enterprise systems—that create measurable competitive advantage. The right tools amplify great strategy.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              This comprehensive approach is what turns operations from cost centers into growth engines.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="relative py-20 px-4 sm:px-6 bg-slate-900/30 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold mb-4">Insights & Perspectives</h2>
-            <p className="text-xl text-slate-400">Thoughts on supply chain, AI, and operational excellence</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section id="blog" className="py-32 px-6 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-light mb-4">Insights & Perspectives</h2>
+          <p className="text-gray-600 mb-16">Thoughts on supply chain, AI, and operational excellence</p>
+          
+          <div className="space-y-12">
             {blogPosts.map((post, i) => (
-              <article key={i} className="group border border-slate-700 rounded-xl overflow-hidden hover:border-blue-400 transition-all hover:bg-slate-900/50 cursor-pointer">
-                <div className="h-48 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center border-b border-slate-700">
-                  <BookOpen className="text-blue-400" size={64} strokeWidth={1.5} />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3 text-sm text-slate-400">
-                    <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400">{post.category}</span>
-                    <div className="flex items-center gap-1">
-                      <Calendar size={14} />
-                      <span>{post.date}</span>
-                    </div>
+              <article key={i} className="border-b border-gray-200 pb-12 last:border-b-0">
+                <div className="flex items-center gap-3 mb-3 text-sm text-gray-500">
+                  <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium">
+                    {post.category}
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Calendar size={14} />
+                    <span>{post.date}</span>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">{post.title}</h3>
-                  <p className="text-slate-400 mb-4 text-sm leading-relaxed">{post.excerpt}</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-sm text-slate-500">
-                      <Clock size={14} />
-                      <span>{post.readTime}</span>
-                    </div>
-                    <span className="text-blue-400 text-sm font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read More <ArrowRight size={16} />
-                    </span>
+                  <div className="flex items-center gap-1">
+                    <Clock size={14} />
+                    <span>{post.readTime}</span>
                   </div>
                 </div>
+                <h3 className="text-2xl font-medium mb-3 hover:text-gray-600 transition-colors cursor-pointer">
+                  {post.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  {post.excerpt}
+                </p>
+                <button className="text-sm font-medium inline-flex items-center gap-2 hover:gap-3 transition-all">
+                  Read More <ArrowRight size={16} />
+                </button>
               </article>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <button className="px-8 py-3 border border-slate-600 rounded-lg font-semibold hover:border-blue-400 transition-colors inline-flex items-center gap-2">
-              View All Articles <ArrowRight size={20} />
+
+          <div className="text-center mt-16">
+            <button className="px-6 py-3 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors">
+              View All Articles
             </button>
           </div>
         </div>
       </section>
 
       {/* Experience */}
-      <section id="experience" className="relative py-20 px-4 sm:px-6 scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-bold mb-12">Experience & Impact</h2>
-          <div className="space-y-6">
-            {[
-              { role: 'VP, Inventory Management, Supply Chain and Returns', company: 'Nordstrom', period: 'April 2024 – Present', impact: 'Multi-million dollar shrink reduction • Significant FC throughput optimization' },
-              { role: 'VP, Ocean Consolidation Services', company: 'Flexport', period: 'Jan 2023 – Oct 2023', impact: 'Strong volume growth • Triple-digit P&L improvement' },
-              { role: 'Sr Director / VP, Service Delivery & M&A', company: 'A.P. Moeller Maersk', period: 'May 2021 – Dec 2022', impact: 'Near-double on-time delivery • Multi-billion P&L' },
-              { role: 'Sr Manager, Grocery Distribution', company: 'Amazon', period: 'May 2018 – May 2021', impact: 'Strong conversion increase • Built team 1 to 300' },
-              { role: 'Founder and CEO', company: 'Easy Taxi Latin America', period: 'June 2012 – May 2015', impact: 'Largest taxi fleet in LatAm • Market leadership' }
-            ].map((exp, i) => (
-              <article key={i} className="group p-8 border border-slate-700 rounded-xl hover:border-blue-400 transition-all hover:bg-slate-900/50">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-semibold group-hover:text-blue-400 transition-colors">{exp.role}</h3>
-                    <p className="text-blue-400 font-semibold text-sm mt-1">{exp.company} • {exp.period}</p>
-                  </div>
-                  <ArrowRight className="text-slate-600 group-hover:text-blue-400 transition-colors mt-2 flex-shrink-0" />
-                </div>
-                <div className="pt-3 border-t border-slate-700">
-                  <p className="text-blue-300 font-semibold text-sm">{exp.impact}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section id="experience" className="py-32 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-light mb-16">Experience</h2>
+          
+          <div className="space-y-12">
+            <div className="border-l-2 border-gray-200 pl-8">
+              <div className="text-sm text-gray-500 mb-2">April 2024 – Present</div>
+              <h3 className="text-xl font-medium mb-2">VP, Inventory Management, Supply Chain and Returns</h3>
+              <div className="text-gray-600 mb-3">Nordstrom</div>
+              <p className="text-gray-600 leading-relaxed">
+                Leading inventory strategy and fulfillment operations for iconic retail brand. Multi-million dollar shrink reduction and significant FC throughput optimization.
+              </p>
+            </div>
 
-      {/* Contact */}
-      <section id="contact" className="relative py-20 px-4 sm:px-6 bg-slate-900/30 scroll-mt-20">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-5xl font-bold mb-12 text-center">Let's Connect</h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <a href="tel:206-245-6474" className="p-6 border border-slate-700 rounded-xl hover:border-blue-400 hover:bg-slate-900/50 transition-all text-center" aria-label="Call Jose Algara">
-              <Phone className="mx-auto mb-3 text-blue-400" size={24} />
-              <p className="text-sm text-slate-400">Phone</p>
-              <p className="font-semibold">206-245-6474</p>
-            </a>
-            <a href="mailto:jose.algara@gmail.com" className="p-6 border border-slate-700 rounded-xl hover:border-blue-400 hover:bg-slate-900/50 transition-all text-center" aria-label="Email Jose Algara">
-              <Mail className="mx-auto mb-3 text-blue-400" size={24} />
-              <p className="text-sm text-slate-400">Email</p>
-              <p className="font-semibold">jose.algara@gmail.com</p>
-            </a>
-            <a href="https://www.linkedin.com/in/jose-algara/" target="_blank" rel="noopener noreferrer" className="p-6 border border-slate-700 rounded-xl hover:border-blue-400 hover:bg-slate-900/50 transition-all text-center" aria-label="View Jose Algara's LinkedIn profile">
-              <Linkedin className="mx-auto mb-3 text-blue-400" size={24} />
-              <p className="text-sm text-slate-400">LinkedIn</p>
-              <p className="font-semibold">View Profile</p>
-            </a>
-          </div>
-          <div className="p-8 border border-slate-700 rounded-xl bg-slate-900/50">
-            <h3 className="text-2xl font-semibold mb-6">Send a message</h3>
-            <div className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <input 
-                  type="text" 
-                  name="name" 
-                  placeholder="Your name" 
-                  value={formData.name} 
-                  onChange={handleInputChange} 
-                  className="px-4 py-4 bg-slate-800 border border-slate-700 rounded-lg focus:border-blue-400 focus:outline-none"
-                  aria-label="Your name"
-                />
-                <input 
-                  type="email" 
-                  name="email" 
-                  placeholder="Your email" 
-                  value={formData.email} 
-                  onChange={handleInputChange} 
-                  className="px-4 py-4 bg-slate-800 border border-slate-700 rounded-lg focus:border-blue-400 focus:outline-none"
-                  aria-label="Your email"
-                />
-              </div>
-              <input 
-                type="text" 
-                name="subject" 
-                placeholder="Subject" 
-                value={formData.subject} 
-                onChange={handleInputChange} 
-                className="w-full px-4 py-4 bg-slate-800 border border-slate-700 rounded-lg focus:border-blue-400 focus:outline-none"
-                aria-label="Subject"
-              />
-              <textarea 
-                name="message" 
-                placeholder="Your message..." 
-                rows="6" 
-                value={formData.message} 
-                onChange={handleInputChange} 
-                className="w-full px-4 py-4 bg-slate-800 border border-slate-700 rounded-lg focus:border-blue-400 focus:outline-none resize-none"
-                aria-label="Your message"
-              />
-              <button 
-                onClick={handleSubmit} 
-                className={`w-full px-6 py-4 font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${submitted ? 'bg-green-600' : 'bg-gradient-to-r from-blue-500 to-cyan-400 text-black hover:shadow-lg'}`}
-                aria-label="Send message"
-              >
-                {submitted ? '✓ Message Sent!' : 'Send Message'} {!submitted && <Send size={20} />}
-              </button>
+            <div className="border-l-2 border-gray-200 pl-8">
+              <div className="text-sm text-gray-500 mb-2">Jan 2023 – Oct 2023</div>
+              <h3 className="text-xl font-medium mb-2">VP, Ocean Consolidation Services</h3>
+              <div className="text-gray-600 mb-3">Flexport</div>
+              <p className="text-gray-600 leading-relaxed">
+                Built and scaled ocean freight consolidation business during market transformation. Strong volume growth with triple-digit P&L improvement.
+              </p>
+            </div>
+
+            <div className="border-l-2 border-gray-200 pl-8">
+              <div className="text-sm text-gray-500 mb-2">May 2021 – Dec 2022</div>
+              <h3 className="text-xl font-medium mb-2">Sr Director / VP, Service Delivery & M&A</h3>
+              <div className="text-gray-600 mb-3">A.P. Moeller Maersk</div>
+              <p className="text-gray-600 leading-relaxed">
+                Led global service delivery transformation and M&A integration. Near-doubled on-time delivery managing multi-billion dollar P&L.
+              </p>
+            </div>
+
+            <div className="border-l-2 border-gray-200 pl-8">
+              <div className="text-sm text-gray-500 mb-2">May 2018 – May 2021</div>
+              <h3 className="text-xl font-medium mb-2">Sr Manager, Grocery Distribution</h3>
+              <div className="text-gray-600 mb-3">Amazon</div>
+              <p className="text-gray-600 leading-relaxed">
+                Scaled Amazon Fresh distribution network across multiple markets. Built team from 1 to 300 people with strong conversion increases.
+              </p>
+            </div>
+
+            <div className="border-l-2 border-gray-200 pl-8">
+              <div className="text-sm text-gray-500 mb-2">June 2012 – May 2015</div>
+              <h3 className="text-xl font-medium mb-2">Founder and CEO</h3>
+              <div className="text-gray-600 mb-3">Easy Taxi Latin America</div>
+              <p className="text-gray-600 leading-relaxed">
+                Built and scaled ride-hailing platform across 30+ cities in Latin America. Created largest taxi fleet in LatAm with market leadership.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Testimonial */}
+      <section className="py-32 px-6 bg-gray-50">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-2xl font-light leading-relaxed text-gray-700 italic mb-6">
+            "Transformed supply chain from reactive to proactive, cutting lead times in half while reducing inventory carrying costs by 28%."
+          </p>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-32 px-6">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-light mb-8">Let's Connect</h2>
+          <p className="text-gray-600 mb-12 leading-relaxed">
+            If you're looking to transform your supply chain operations, build high-performing teams, or navigate complex organizational change, I'd love to hear from you.
+          </p>
+          
+          {/* Contact Methods */}
+          <div className="grid sm:grid-cols-3 gap-8 mb-16">
+            <div>
+              <div className="text-sm text-gray-500 mb-2">Email</div>
+              <a href="mailto:jose.algara@gmail.com" className="text-gray-900 hover:text-gray-600 transition-colors">
+                jose.algara@gmail.com
+              </a>
+            </div>
+            <div>
+              <div className="text-sm text-gray-500 mb-2">Phone</div>
+              <a href="tel:206-245-6474" className="text-gray-900 hover:text-gray-600 transition-colors">
+                206-245-6474
+              </a>
+            </div>
+            <div>
+              <div className="text-sm text-gray-500 mb-2">LinkedIn</div>
+              <a 
+                href="https://www.linkedin.com/in/jose-algara/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-900 hover:text-gray-600 transition-colors"
+              >
+                View Profile
+              </a>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="border-t border-gray-200 pt-16">
+            <h3 className="text-xl font-medium mb-8">Send a Message</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm text-gray-600 mb-2">Name</label>
+                <input 
+                  type="text" 
+                  name="name" 
+                  value={formData.name} 
+                  onChange={handleInputChange} 
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-2">Email</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  value={formData.email} 
+                  onChange={handleInputChange} 
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-2">Message</label>
+                <textarea 
+                  name="message" 
+                  rows="6" 
+                  value={formData.message} 
+                  onChange={handleInputChange} 
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 focus:border-gray-400 focus:outline-none resize-none transition-colors"
+                />
+              </div>
+              <button 
+                type="submit"
+                disabled={submitting}
+                className={`w-full px-6 py-4 text-sm font-medium transition-colors ${
+                  submitted 
+                    ? 'bg-green-600 text-white' 
+                    : submitting
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    : 'bg-black text-white hover:bg-gray-800'
+                }`}
+              >
+                {submitted ? '✓ Message Sent' : submitting ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-slate-600">© 2025 Jose Algara. Supply Chain & Product Leadership.</p>
+      <footer className="py-12 px-6 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto flex justify-between items-center text-sm text-gray-500">
+          <div>© 2025 Jose Algara</div>
+          <div className="flex gap-6">
+            <a href="https://www.linkedin.com/in/jose-algara/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">
+              LinkedIn
+            </a>
+            <a href="mailto:jose.algara@gmail.com" className="hover:text-gray-900 transition-colors">
+              Email
+            </a>
+          </div>
         </div>
       </footer>
     </div>
   );
 }
-
 
 
 
