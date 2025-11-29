@@ -167,7 +167,7 @@ export default function Portfolio() {
                 <h3 className="text-2xl font-medium">Supply Chain Transformation: From Cost Center to Competitive Advantage</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                I transform global supply chains into resilient competitive advantages by combining aggressive operational restructuring with enterprise-grade digital transformation. This approach delivers immediate and sustainable P&L impact, leading to the unlocking of significant working capital through tighter inventory control and driving double-digit margin expansion via strategic pricing and cost management. Furthermore, I stabilize and accelerate complex networks, drastically improving service reliability and on-time performance by redefining network strategies and automating critical shipment planning.
+                I transform global supply chains into resilient competitive advantages by combining aggressive operational restructuring with enterprise-grade digital transformation, delivering immediate and sustainable P&L impact. This approach consistently unlocks significant working capital through tighter inventory control and drives double-digit margin expansion, while stabilizing and accelerating complex networks to drastically improve service reliability and on-time performance through automated network strategies.
               </p>
             </div>
 
@@ -178,7 +178,7 @@ export default function Portfolio() {
                 <h3 className="text-2xl font-medium">Executive Leadership Coaching: Accelerate Your Growth</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                I provide executive leadership coaching based on real-world success and experience driving massive organizational transformation at global organizations. My coaching is designed for high-potential leaders seeking to accelerate their transition to executive levels. I teach leaders how to successfully architect and scale teams, define digital transformation strategies and multi-year roadmaps for billion-dollar operations, and translate high-level visions into executional plans. The coaching focuses on establishing leadership frameworks that improve team velocity, quality of deliverables, and drive measurable organizational cost reduction.
+                I provide executive leadership coaching based on real-world success, specifically designed to accelerate the transition of high-potential leaders into the C-Suite by leveraging my experience driving massive organizational transformation. My framework coaches leaders on how to successfully architect and scale product and engineering teams (from 1 to over 300 people), define the digital strategy and multi-year roadmaps necessary for billion-dollar operations, and establish leadership frameworks that improve team velocity, quality of deliverables, and measurable organizational cost reduction.
               </p>
             </div>
 
@@ -189,7 +189,8 @@ export default function Portfolio() {
                 <h3 className="text-2xl font-medium">Operational Maturity Assessment: A VP's Perspective</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                I offer a comprehensive operational maturity assessment framework derived from building, restructuring, and running large-scale logistics and retail supply chains for leaders like Amazon, Nordstrom, A.P. Moeller Maersk, and Flexport. My evaluation is not theoretical; it is a data-driven diagnostic that identifies gaps, benchmarks performance against the highest industry standards, and provides prioritized, battle-tested roadmaps. We provide qualitative expertise to clearly define where your organization stands, where it needs to be, and the precise, step-by-step path forward, complete with clear ROI expectations grounded in real-world transformation results.              </p>
+                I offer a comprehensive operational maturity assessment framework derived from building, restructuring, and running large-scale supply chains for leaders like Amazon, Nordstrom, and Maersk, providing a data-driven diagnostic that is strictly non-theoretical. This assessment identifies gaps, benchmarks performance against the highest industry standards, and delivers a prioritized, battle-tested roadmap that includes clear ROI expectations grounded in real-world transformation results.
+              </p>
             </div>
 
             {/* Service 4 */}
@@ -199,7 +200,8 @@ export default function Portfolio() {
                 <h3 className="text-2xl font-medium">AIML & Automation Strategy: Business Value over Technology</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                I specialize in defining and executing AIML and automation strategies that directly convert technical capability into business value, not technology for its own sake. Leveraging experience leading the implementation of AI-powered forecasting, orchestration and optimization engines across large-scale global operations, I help executives navigate the landscape by prioritizing high-value opportunities that deliver quick, measurable wins. My framework ensures the deployment of solutions that are not only technologically advanced but are also designed to be responsible, scalable AI systems that drive core organizational metrics, such as improved on-time delivery or optimized inventory control.              </p>
+                I specialize in defining and executing AI and automation strategies that directly convert technical capability into business value, not technology for its own sake. Leveraging experience leading the implementation of AI-powered forecasting and optimization engines across global operations, I help executives prioritize quick-win opportunities and ensure the deployment of solutions are responsible, scalable AI systems designed to drive core organizational metrics, such as improved on-time delivery or optimized inventory control.
+              </p>
             </div>
           </div>
         </div>
