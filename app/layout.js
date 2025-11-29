@@ -44,8 +44,7 @@ export const metadata = {
     canonical: 'https://josealgara.com',
   },
   verification: {
-    google: <meta name="google-site-verification" content="GlrgVXsy1torsm-x7tFy0pqkPZuVJIJEMcecx1vr3Hc" />, // Replace with actual code from Google Search Console
-  },
+    google:'GlrgVXsy1torsm-x7tFy0PqkPZuVJIJEMcecx1vr3Hc'},
 }
 
 export default function RootLayout({ children }) {
