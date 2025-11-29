@@ -109,12 +109,12 @@ export default function Portfolio() {
 
           {/* Two Column: Image + Bio */}
           <div className="grid lg:grid-cols-12 gap-16 items-start">
-            {/* Left Column: Profile Image */}
+            {/* Left Column: Profile Image - Fixed positioning */}
             <div className="lg:col-span-5 flex justify-center lg:justify-start">
               <img 
                 src="/IMG_2031.JPG" 
                 alt="Jose Algara" 
-                className="w-64 h-64 rounded-full object-cover border-2 border-gray-100 shadow-lg"
+                className="w-64 h-64 rounded-full object-cover object-[center_25%] border-2 border-gray-100 shadow-lg"
               />
             </div>
 
@@ -415,6 +415,7 @@ export default function Portfolio() {
     </div>
   );
 }
+
 
 
 
