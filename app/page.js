@@ -108,7 +108,7 @@ export default function Portfolio() {
             />
           </div>
           <h1 className="text-5xl sm:text-6xl font-light leading-tight mb-8">
-            Operations Drive Growth
+            Transforming your Supply Chain into a Competitive Advantage
           </h1>
           <div className="space-y-6 text-xl text-gray-600 leading-relaxed mb-12">
             <p>
