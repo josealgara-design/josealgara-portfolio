@@ -175,10 +175,10 @@ export default function Portfolio() {
             <div>
               <div className="flex items-baseline gap-4 mb-4">
                 <span className="text-sm text-gray-400 font-mono">02</span>
-                <h3 className="text-2xl font-medium">Executive Coaching</h3>
+                <h3 className="text-2xl font-medium">Executive Leadership Coaching: Accelerate Your Growth</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                Real-world experience building teams from 1 to 300+ people across Amazon, Maersk, and Flexport. I help leaders develop executive presence, strategic thinking, and the skills to drive organizational transformation. My approach is practical, not theoretical — battle-tested insights from scaling global operations.
+                I provide executive leadership coaching rooted in real-world success, designed specifically for high-potential leaders who must accelerate their strategic thinking and team execution to make the leap into the C-Suite. My framework is derived from experience driving massive organizational transformation at global organizations including Amazon, Maersk, and Flexport. I coach leaders on how to successfully architect and scale product and engineering teams from 1 to over 300 people , defining the digital transformation strategy and multi-year roadmaps necessary for billion-dollar operations. We focus on translating high-level vision into execution, establishing the leadership presence and frameworks—such as implementing product development lifecycles—that improve team velocity, quality of deliverables, and drive measurable organizational cost reduction.
               </p>
             </div>
 
