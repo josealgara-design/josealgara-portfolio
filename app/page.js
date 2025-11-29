@@ -167,7 +167,7 @@ export default function Portfolio() {
                 <h3 className="text-2xl font-medium">Supply Chain Transformation: From Cost Center to Competitive Advantage</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                I transform global supply chains from traditional cost centers into resilient competitive advantages, leveraging deep experience with industry-leading retailers and logistics giants. By synchronizing aggressive operational restructuring with enterprise-grade digital transformation, I deliver immediate and sustainable P&L impact—consistently unlocking significant working capital through tighter inventory control and driving double-digit margin expansion via strategic pricing and cost management. Beyond fiscal recovery, I specialize in stabilizing and accelerating complex networks to protect the customer promise; this includes drastically improving service reliability and on-time performance rates by redefining network strategies and automating critical shipment planning.
+                I transform global supply chains into resilient competitive advantages by combining aggressive operational restructuring with enterprise-grade digital transformation. This approach delivers immediate and sustainable P&L impact, leading to the unlocking of significant working capital through tighter inventory control and driving double-digit margin expansion via strategic pricing and cost management. Furthermore, I stabilize and accelerate complex networks, drastically improving service reliability and on-time performance by redefining network strategies and automating critical shipment planning.
               </p>
             </div>
 
@@ -178,7 +178,7 @@ export default function Portfolio() {
                 <h3 className="text-2xl font-medium">Executive Leadership Coaching: Accelerate Your Growth</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                I provide executive leadership coaching rooted in real-world success, designed specifically for high-potential leaders who must accelerate their strategic thinking and team execution to make the leap into the C-Suite. My framework is derived from experience driving massive organizational transformation at global organizations including Amazon, Maersk, and Flexport. I coach leaders on how to successfully architect and scale product and engineering teams from 1 to over 300 people , defining the digital transformation strategy and multi-year roadmaps necessary for billion-dollar operations. We focus on translating high-level vision into execution, establishing the leadership presence and frameworks—such as implementing product development lifecycles—that improve team velocity, quality of deliverables, and drive measurable organizational cost reduction.
+                I provide executive leadership coaching based on real-world success and experience driving massive organizational transformation at global organizations. My coaching is designed for high-potential leaders seeking to accelerate their transition to executive levels. I teach leaders how to successfully architect and scale teams, define digital transformation strategies and multi-year roadmaps for billion-dollar operations, and translate high-level visions into executional plans. The coaching focuses on establishing leadership frameworks that improve team velocity, quality of deliverables, and drive measurable organizational cost reduction.
               </p>
             </div>
 
@@ -186,22 +186,20 @@ export default function Portfolio() {
             <div>
               <div className="flex items-baseline gap-4 mb-4">
                 <span className="text-sm text-gray-400 font-mono">03</span>
-                <h3 className="text-2xl font-medium">Operational Maturity Assessment</h3>
+                <h3 className="text-2xl font-medium">Operational Maturity Assessment: A VP's Perspective</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                Comprehensive evaluation framework to identify gaps, benchmark against industry leaders, and build prioritized roadmaps. Data-driven insights backed by qualitative expertise to help you understand where you are and chart the path forward with clear ROI expectations.
-              </p>
+                I offer a comprehensive operational maturity assessment framework derived from building, restructuring, and running large-scale logistics and retail supply chains for leaders like Amazon, Nordstrom, A.P. Moeller Maersk, and Flexport. My evaluation is not theoretical; it is a data-driven diagnostic that identifies gaps, benchmarks performance against the highest industry standards, and provides prioritized, battle-tested roadmaps. We provide qualitative expertise to clearly define where your organization stands, where it needs to be, and the precise, step-by-step path forward, complete with clear ROI expectations grounded in real-world transformation results.              </p>
             </div>
 
             {/* Service 4 */}
             <div>
               <div className="flex items-baseline gap-4 mb-4">
                 <span className="text-sm text-gray-400 font-mono">04</span>
-                <h3 className="text-2xl font-medium">AI & Automation Strategy</h3>
+                <h3 className="text-2xl font-medium">AIML & Automation Strategy: Business Value over Technology</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                Led implementation of AI-powered demand forecasting and optimization engines. I help identify highest-value automation opportunities, deploy solutions with quick wins, and build responsible AI systems that scale. Focus on business value, not technology for its own sake.
-              </p>
+                I specialize in defining and executing AIML and automation strategies that directly convert technical capability into business value, not technology for its own sake. Leveraging experience leading the implementation of AI-powered forecasting, orchestration and optimization engines across large-scale global operations, I help executives navigate the landscape by prioritizing high-value opportunities that deliver quick, measurable wins. My framework ensures the deployment of solutions that are not only technologically advanced but are also designed to be responsible, scalable AI systems that drive core organizational metrics, such as improved on-time delivery or optimized inventory control.              </p>
             </div>
           </div>
         </div>
