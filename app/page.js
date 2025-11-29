@@ -114,7 +114,7 @@ export default function Portfolio() {
               <img 
                 src="/IMG_2031.JPG" 
                 alt="Jose Algara" 
-                className="w-64 h-64 rounded-full object-cover object-[center_5%] border-2 border-gray-100 shadow-lg"
+                className="w-64 h-64 rounded-full object-cover object-[center_3%] border-2 border-gray-100 shadow-lg"
               />
             </div>
 
