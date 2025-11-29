@@ -91,45 +91,35 @@ export default function Portfolio() {
           <div className="flex gap-10">
             <button onClick={() => scrollToSection('services')} className="text-sm hover:text-gray-600 transition-colors">What I Do</button>
             <button onClick={() => scrollToSection('blog')} className="text-sm hover:text-gray-600 transition-colors">Insights</button>
-            <button onClick={() => scrollToSection('experience')} className="text-sm hover:text-gray-600 transition-colors">Experience</button>
             <button onClick={() => scrollToSection('contact')} className="text-sm hover:text-gray-600 transition-colors">Contact</button>
           </div>
         </div>
       </nav>
 
-      {/* Hero - More Spacious */}
+      {/* Hero - New Design with Centered Title */}
       <section id="hero" className="pt-32 pb-24 px-8">
         <div className="max-w-6xl mx-auto">
+          {/* Centered Headline */}
+          <div className="text-center mb-20">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light leading-tight">
+              Transform your Supply Chain<br className="hidden sm:block" />
+              <span className="sm:inline"> </span>into a Value Engine
+            </h1>
+          </div>
+
+          {/* Two Column: Image + Bio */}
           <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-7">
-              <div className="mb-10">
-                <img 
-                  src="/image.png" 
-                  alt="Jose Algara" 
-                  className="w-32 h-32 rounded-full object-cover mb-8 border-2 border-gray-100"
-                />
-              </div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.1] mb-10">
-                Operations Drive Growth
-              </h1>
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => scrollToSection('contact')} 
-                  className="px-8 py-4 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
-                >
-                  Let's work together
-                </button>
-                <a 
-                  href="https://www.linkedin.com/in/jose-algara/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="px-8 py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors"
-                >
-                  LinkedIn
-                </a>
-              </div>
+            {/* Left Column: Profile Image */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-start">
+              <img 
+                src="/IMG_2031.JPG" 
+                alt="Jose Algara" 
+                className="w-64 h-64 rounded-full object-cover border-2 border-gray-100 shadow-lg"
+              />
             </div>
-            <div className="lg:col-span-5">
+
+            {/* Right Column: Bio Text + CTAs */}
+            <div className="lg:col-span-7">
               <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                 <p>
                   Twenty years optimizing supply chain and inventory management across apparel, general merchandise, and grocery retail. I've built technology solutions for Fortune 500 companies—Amazon, Nordstrom, Maersk—and scaled startups from inception to acquisition.
@@ -140,6 +130,24 @@ export default function Portfolio() {
                 <p>
                   I create solutions that scale with growth and pivot with change, turning operational complexity into competitive advantage.
                 </p>
+
+                {/* CTAs */}
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    onClick={() => scrollToSection('contact')} 
+                    className="px-8 py-4 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
+                  >
+                    Let's work together
+                  </button>
+                  <a 
+                    href="https://www.linkedin.com/in/jose-algara/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="px-8 py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -286,62 +294,8 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Experience - Two Column Timeline */}
-      <section id="experience" className="py-24 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-light mb-20">Experience</h2>
-          
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
-            <div className="border-l-2 border-gray-200 pl-8">
-              <div className="text-sm text-gray-500 mb-2">April 2024 – Present</div>
-              <h3 className="text-xl font-medium mb-2">VP, Inventory Management, Supply Chain and Returns</h3>
-              <div className="text-gray-600 mb-3">Nordstrom</div>
-              <p className="text-gray-600 leading-relaxed">
-                Leading inventory strategy and fulfillment operations for iconic retail brand. Multi-million dollar shrink reduction and significant FC throughput optimization.
-              </p>
-            </div>
-
-            <div className="border-l-2 border-gray-200 pl-8">
-              <div className="text-sm text-gray-500 mb-2">Jan 2023 – Oct 2023</div>
-              <h3 className="text-xl font-medium mb-2">VP, Ocean Consolidation Services</h3>
-              <div className="text-gray-600 mb-3">Flexport</div>
-              <p className="text-gray-600 leading-relaxed">
-                Built and scaled ocean freight consolidation business during market transformation. Strong volume growth with triple-digit P&L improvement.
-              </p>
-            </div>
-
-            <div className="border-l-2 border-gray-200 pl-8">
-              <div className="text-sm text-gray-500 mb-2">May 2021 – Dec 2022</div>
-              <h3 className="text-xl font-medium mb-2">Sr Director / VP, Service Delivery & M&A</h3>
-              <div className="text-gray-600 mb-3">A.P. Moeller Maersk</div>
-              <p className="text-gray-600 leading-relaxed">
-                Led global service delivery transformation and M&A integration. Near-doubled on-time delivery managing multi-billion dollar P&L.
-              </p>
-            </div>
-
-            <div className="border-l-2 border-gray-200 pl-8">
-              <div className="text-sm text-gray-500 mb-2">May 2018 – May 2021</div>
-              <h3 className="text-xl font-medium mb-2">Sr Manager, Grocery Distribution</h3>
-              <div className="text-gray-600 mb-3">Amazon</div>
-              <p className="text-gray-600 leading-relaxed">
-                Scaled Amazon Fresh distribution network across multiple markets. Built team from 1 to 300 people with strong conversion increases.
-              </p>
-            </div>
-
-            <div className="border-l-2 border-gray-200 pl-8 md:col-span-2">
-              <div className="text-sm text-gray-500 mb-2">June 2012 – May 2015</div>
-              <h3 className="text-xl font-medium mb-2">Founder and CEO</h3>
-              <div className="text-gray-600 mb-3">Easy Taxi Latin America</div>
-              <p className="text-gray-600 leading-relaxed">
-                Built and scaled ride-hailing platform across 30+ cities in Latin America. Created largest taxi fleet in LatAm with market leadership.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonial */}
-      <section className="py-24 px-8 bg-gray-50">
+      <section className="py-24 px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-3xl font-light leading-relaxed text-gray-700 italic">
             "Transformed supply chain from reactive to proactive, cutting lead times in half while reducing inventory carrying costs by 28%."
@@ -350,7 +304,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact - Two Column */}
-      <section id="contact" className="py-24 px-8">
+      <section id="contact" className="py-24 px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-16">
             <div className="lg:col-span-5">
