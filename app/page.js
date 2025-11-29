@@ -164,10 +164,10 @@ export default function Portfolio() {
             <div>
               <div className="flex items-baseline gap-4 mb-4">
                 <span className="text-sm text-gray-400 font-mono">01</span>
-                <h3 className="text-2xl font-medium">Supply Chain Transformation</h3>
+                <h3 className="text-2xl font-medium">Supply Chain Transformation: From Cost Center to Competitive Advantage</h3>
               </div>
               <p className="text-gray-600 leading-relaxed pl-10">
-                Leading transformations at Nordstrom, Maersk, and Flexport. Built enterprise systems delivering multi-million dollar savings while improving service levels. I specialize in network optimization, technology implementation, and change management. Results include 28% inventory cost reduction and near-doubling of on-time delivery rates.
+                I transform global supply chains from traditional cost centers into resilient competitive advantages, leveraging deep experience with industry-leading retailers and logistics giants. By synchronizing aggressive operational restructuring with enterprise-grade digital transformation, I deliver immediate and sustainable P&L impact—consistently unlocking significant working capital through tighter inventory control and driving double-digit margin expansion via strategic pricing and cost management. Beyond fiscal recovery, I specialize in stabilizing and accelerating complex networks to protect the customer promise; this includes drastically improving service reliability and on-time performance rates by redefining network strategies and automating critical shipment planning.
               </p>
             </div>
 
