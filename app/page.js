@@ -303,96 +303,121 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Contact - Two Column */}
+      {/* Contact - Calendly Integration */}
       <section id="contact" className="py-24 px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light mb-6">Let's Connect</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Ready to transform your supply chain operations? Schedule a conversation to discuss how we can work together.
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-12 gap-16">
-            <div className="lg:col-span-5">
-              <h2 className="text-4xl font-light mb-8">Let's Connect</h2>
-              <p className="text-gray-600 mb-12 leading-relaxed text-lg">
-                If you're looking to transform your supply chain operations, build high-performing teams, or navigate complex organizational change, I'd love to hear from you.
-              </p>
-              
-              {/* Contact Methods */}
-              <div className="space-y-6">
-                <div>
-                  <div className="text-sm text-gray-500 mb-2">Email</div>
-                  <a href="mailto:jose.algara@gmail.com" className="text-lg text-gray-900 hover:text-gray-600 transition-colors">
-                    jose.algara@gmail.com
-                  </a>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-500 mb-2">Phone</div>
-                  <a href="tel:206-245-6474" className="text-lg text-gray-900 hover:text-gray-600 transition-colors">
-                    206-245-6474
-                  </a>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-500 mb-2">LinkedIn</div>
+            {/* Left Column: Calendly Booking */}
+            <div className="lg:col-span-7">
+              <div className="bg-white border border-gray-200 rounded-lg p-8">
+                <h3 className="text-2xl font-medium mb-6">Book a Consultation</h3>
+                
+                {/* Calendly Button/Link */}
+                <div className="space-y-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    Select a time that works for you, and we'll discuss your supply chain challenges and opportunities.
+                  </p>
+                  
+                  {/* Primary Calendly Button */}
                   <a 
-                    href="https://www.linkedin.com/in/jose-algara/" 
+                    href="https://calendly.com/jose-algara/30min" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-lg text-gray-900 hover:text-gray-600 transition-colors"
+                    className="block w-full px-8 py-4 bg-black text-white text-center text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
-                    View Profile
+                    Schedule a Call
                   </a>
+
+                  {/* Alternative: Inline Calendly Widget - Uncomment to use */}
+                  {/* 
+                  <div 
+                    className="calendly-inline-widget" 
+                    data-url="https://calendly.com/your-calendly-link" 
+                    style={{minWidth: '320px', height: '700px'}}
+                  ></div>
+                  */}
+
+                  <p className="text-sm text-gray-500 text-center">
+                    Typical initial consultation sessions are 15-3 minutes
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-7">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm text-gray-600 mb-2">Name</label>
-                    <input 
-                      type="text" 
-                      name="name" 
-                      value={formData.name} 
-                      onChange={handleInputChange} 
-                      required
-                      className="w-full px-4 py-4 border border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-gray-600 mb-2">Email</label>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      value={formData.email} 
-                      onChange={handleInputChange} 
-                      required
-                      className="w-full px-4 py-4 border border-gray-200 focus:border-gray-400 focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
+            {/* Right Column: Alternative Contact & Social */}
+            <div className="lg:col-span-5">
+              <div className="space-y-8">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-2">Message</label>
-                  <textarea 
-                    name="message" 
-                    rows="8" 
-                    value={formData.message} 
-                    onChange={handleInputChange} 
-                    required
-                    className="w-full px-4 py-4 border border-gray-200 focus:border-gray-400 focus:outline-none resize-none transition-colors"
-                  />
+                  <h3 className="text-xl font-medium mb-6">Other Ways to Connect</h3>
+                  
+                  <div className="space-y-4">
+                    <a 
+                      href="https://www.linkedin.com/in/jose-algara/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                    >
+                      <Linkedin className="text-gray-400 group-hover:text-gray-600" size={20} />
+                      <div>
+                        <div className="text-sm text-gray-500">LinkedIn</div>
+                        <div className="font-medium group-hover:text-gray-600">Connect with me</div>
+                      </div>
+                    </a>
+
+                    <a 
+                      href="mailto:jose.algara@gmail.com"
+                      className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                    >
+                      <Mail className="text-gray-400 group-hover:text-gray-600" size={20} />
+                      <div>
+                        <div className="text-sm text-gray-500">Email</div>
+                        <div className="font-medium group-hover:text-gray-600">jose.algara@gmail.com</div>
+                      </div>
+                    </a>
+
+                    <a 
+                      href="tel:206-245-6474"
+                      className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                    >
+                      <Phone className="text-gray-400 group-hover:text-gray-600" size={20} />
+                      <div>
+                        <div className="text-sm text-gray-500">Phone</div>
+                        <div className="font-medium group-hover:text-gray-600">206-245-6474</div>
+                      </div>
+                    </a>
+                  </div>
                 </div>
-                <button 
-                  type="submit"
-                  disabled={submitting}
-                  className={`w-full px-6 py-4 text-sm font-medium transition-colors ${
-                    submitted 
-                      ? 'bg-green-600 text-white' 
-                      : submitting
-                      ? 'bg-gray-400 text-white cursor-not-allowed'
-                      : 'bg-black text-white hover:bg-gray-800'
-                  }`}
-                >
-                  {submitted ? '✓ Message Sent' : submitting ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
+
+                {/* What to Expect */}
+                <div className="bg-blue-50 border border-blue-100 rounded-lg p-6">
+                  <h4 className="font-medium mb-3">What to Expect</h4>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-0.5">✓</span>
+                      <span>Discussion of your current challenges</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-0.5">✓</span>
+                      <span>Assessment of opportunities</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-0.5">✓</span>
+                      <span>Potential approaches and next steps</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-0.5">✓</span>
+                      <span>No obligation conversation</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -415,6 +440,7 @@ export default function Portfolio() {
     </div>
   );
 }
+
 
 
 
