@@ -1,33 +1,50 @@
+import { Inter } from 'next/font/google'
 import './globals.css'
+import Script from 'next/script'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Jose Algara | Supply Chain & Inventory Management Expert | AI-Powered Optimization',
-  description: 'Transform your supply chain with Jose Algara - 20+ years optimizing operations for Fortune 500 companies. Expert in AI-powered inventory management, logistics optimization, and executive coaching.',
-  keywords: ['supply chain optimization', 'inventory management', 'AI supply chain', 'logistics consultant', 'operations excellence', 'supply chain transformation', 'executive coaching', 'demand forecasting'],
+  title: 'Jose Algara - Supply Chain Transformation & Executive Leadership',
+  description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.',
+  keywords: 'supply chain transformation, inventory management, executive coaching, AI automation, supply chain optimization, operations leadership, logistics consultant',
   authors: [{ name: 'Jose Algara' }],
   creator: 'Jose Algara',
   publisher: 'Jose Algara',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://josealgara.com'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'es-ES': '/es-ES',
+    },
+  },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
+    title: 'Jose Algara - Supply Chain Transformation & Executive Leadership',
+    description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.',
     url: 'https://josealgara.com',
-    title: 'Jose Algara | Supply Chain & Inventory Management Expert',
-    description: 'Transform operations into value engines. 20+ years optimizing supply chain and inventory management with AI-powered solutions.',
     siteName: 'Jose Algara',
     images: [
       {
-        url: 'https://josealgara.com/og-image.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Jose Algara - Supply Chain & Inventory Management Expert',
+        alt: 'Jose Algara - Supply Chain Transformation Expert',
       },
     ],
+    locale: 'en_US',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jose Algara | Supply Chain Expert',
-    description: 'Transform operations into value engines with AI-powered supply chain solutions.',
-    images: ['https://josealgara.com/twitter-image.jpg'],
+    title: 'Jose Algara - Supply Chain Transformation & Executive Leadership',
+    description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport.',
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -40,59 +57,110 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: 'https://josealgara.com',
-  },
   verification: {
-    google:'GlrgVXsy1torsm-x7tFy0PqkPZuVJIJEMcecx1vr3Hc'},
+    // Add your verification codes here after setting up
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+    // bing: 'your-bing-verification-code',
+  },
 }
 
 export default function RootLayout({ children }) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Jose Algara',
+    url: 'https://josealgara.com',
+    image: 'https://josealgara.com/IMG_2031.JPG',
+    sameAs: [
+      'https://www.linkedin.com/in/jose-algara/',
+    ],
+    jobTitle: 'VP Supply Chain & Inventory Management',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Independent Consultant',
+    },
+    description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.',
+    email: 'jose.algara@gmail.com',
+    telephone: '+1-206-245-6474',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Seattle',
+      addressRegion: 'WA',
+      addressCountry: 'US',
+    },
+    knowsAbout: [
+      'Supply Chain Management',
+      'Inventory Optimization',
+      'AI Strategy',
+      'Executive Coaching',
+      'Digital Transformation',
+      'Operations Leadership',
+      'Logistics',
+      'Process Improvement',
+    ],
+    alumniOf: [
+      {
+        '@type': 'Organization',
+        name: 'Amazon',
+      },
+      {
+        '@type': 'Organization',
+        name: 'Nordstrom',
+      },
+      {
+        '@type': 'Organization',
+        name: 'A.P. Moeller Maersk',
+      },
+      {
+        '@type': 'Organization',
+        name: 'Flexport',
+      },
+    ],
+  }
+
   return (
     <html lang="en">
       <head>
         {/* Structured Data */}
-        <script
+        <Script
+          id="structured-data"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Jose Algara",
-              "jobTitle": "VP Supply Chain & Inventory Management",
-              "description": "Supply Chain and Inventory Management expert specializing in AI-powered optimization, operations transformation, and executive coaching",
-              "url": "https://josealgara.com",
-              "sameAs": [
-                "https://www.linkedin.com/in/jose-algara/"
-              ],
-              "knowsAbout": [
-                "Supply Chain Management",
-                "Inventory Management",
-                "AI and Machine Learning",
-                "Operations Optimization",
-                "Executive Coaching",
-                "Logistics",
-                "E-commerce"
-              ],
-              "alumniOf": [
-                {
-                  "@type": "Organization",
-                  "name": "IE Business School"
-                },
-                {
-                  "@type": "Organization",
-                  "name": "Tecnológico de Monterrey"
-                }
-              ]
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+        
+        {/* Google Analytics - Replace G-XXXXXXXXXX with your actual GA4 ID */}
+        {/* Uncomment when you have your Google Analytics ID
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+          `}
+        </Script>
+        */}
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/manifest.json" />
+        
+        {/* Additional Meta Tags */}
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="format-detection" content="telephone=no" />
       </head>
-      <body>{children}</body>
+      <body className={inter.className}>
+        {children}
+      </body>
     </html>
   )
 }
-
-
-
-
