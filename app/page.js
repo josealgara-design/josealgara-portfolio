@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Send, Mail, Phone, Linkedin, BookOpen, Calendar, Clock, Globe } from 'lucide-react';
+import { ArrowRight, Send, Mail, Phone, Linkedin, BookOpen, Calendar, Clock, Globe, Menu, X } from 'lucide-react';
 
 export default function Page() {
   const [language, setLanguage] = useState('en'); // 'en' or 'es'
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Update HTML lang attribute when language changes
   useEffect(() => {
@@ -313,85 +314,152 @@ export default function Page() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    setMobileMenuOpen(false);
   };
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-8 py-6 flex justify-between items-center">
-          <button onClick={() => scrollToSection('hero')} className="text-xl font-medium" aria-label="Home">
-            Jose Algara
-          </button>
-          <div className="flex items-center gap-10">
-            <button onClick={() => scrollToSection('services')} className="text-sm hover:text-gray-600 transition-colors">
-              {t.nav.whatIDo}
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-4 sm:py-6">
+          <div className="flex justify-between items-center">
+            {/* Logo */}
+            <button onClick={() => scrollToSection('hero')} className="text-lg sm:text-xl font-medium" aria-label="Home">
+              Jose Algara
             </button>
-            <button onClick={() => scrollToSection('blog')} className="text-sm hover:text-gray-600 transition-colors">
-              {t.nav.insights}
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="text-sm hover:text-gray-600 transition-colors">
-              {t.nav.contact}
-            </button>
-            
-            {/* Language Toggle */}
-            <div className="flex items-center gap-2 ml-4 pl-4 border-l border-gray-200">
-              <Globe size={16} className="text-gray-400" aria-hidden="true" />
-              <button
-                onClick={() => setLanguage('en')}
-                className={`text-sm font-medium transition-colors ${
-                  language === 'en' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'
-                }`}
-                aria-label="Switch to English"
-              >
-                EN
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8 lg:gap-10">
+              <button onClick={() => scrollToSection('services')} className="text-sm hover:text-gray-600 transition-colors">
+                {t.nav.whatIDo}
               </button>
-              <span className="text-gray-300">/</span>
+              <button onClick={() => scrollToSection('blog')} className="text-sm hover:text-gray-600 transition-colors">
+                {t.nav.insights}
+              </button>
+              <button onClick={() => scrollToSection('contact')} className="text-sm hover:text-gray-600 transition-colors">
+                {t.nav.contact}
+              </button>
+              
+              {/* Language Toggle - Desktop */}
+              <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
+                <Globe size={16} className="text-gray-400" aria-hidden="true" />
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`text-sm font-medium transition-colors ${
+                    language === 'en' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'
+                  }`}
+                  aria-label="Switch to English"
+                >
+                  EN
+                </button>
+                <span className="text-gray-300">/</span>
+                <button
+                  onClick={() => setLanguage('es')}
+                  className={`text-sm font-medium transition-colors ${
+                    language === 'es' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'
+                  }`}
+                  aria-label="Cambiar a Español"
+                >
+                  ES
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button & Language Toggle */}
+            <div className="flex items-center gap-4 md:hidden">
+              {/* Language Toggle - Mobile */}
+              <div className="flex items-center gap-1.5">
+                <Globe size={14} className="text-gray-400" aria-hidden="true" />
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`text-xs font-medium transition-colors ${
+                    language === 'en' ? 'text-gray-900' : 'text-gray-400'
+                  }`}
+                  aria-label="Switch to English"
+                >
+                  EN
+                </button>
+                <span className="text-gray-300 text-xs">/</span>
+                <button
+                  onClick={() => setLanguage('es')}
+                  className={`text-xs font-medium transition-colors ${
+                    language === 'es' ? 'text-gray-900' : 'text-gray-400'
+                  }`}
+                  aria-label="Cambiar a Español"
+                >
+                  ES
+                </button>
+              </div>
+
               <button
-                onClick={() => setLanguage('es')}
-                className={`text-sm font-medium transition-colors ${
-                  language === 'es' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'
-                }`}
-                aria-label="Cambiar a Español"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               >
-                ES
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden pt-4 pb-2 border-t border-gray-100 mt-4">
+              <div className="flex flex-col space-y-3">
+                <button 
+                  onClick={() => scrollToSection('services')} 
+                  className="text-left py-2 text-sm hover:text-gray-600 transition-colors"
+                >
+                  {t.nav.whatIDo}
+                </button>
+                <button 
+                  onClick={() => scrollToSection('blog')} 
+                  className="text-left py-2 text-sm hover:text-gray-600 transition-colors"
+                >
+                  {t.nav.insights}
+                </button>
+                <button 
+                  onClick={() => scrollToSection('contact')} 
+                  className="text-left py-2 text-sm hover:text-gray-600 transition-colors"
+                >
+                  {t.nav.contact}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero */}
-      <section id="hero" className="pt-32 pb-24 px-8">
+      <section id="hero" className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light leading-tight">
+          <div className="text-center mb-12 sm:mb-20">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-light leading-tight px-4">
               {t.hero.title1}<br className="hidden sm:block" />
               <span className="sm:inline"> </span>{t.hero.title2}
             </h1>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 sm:gap-16 items-start">
             <div className="lg:col-span-5 flex justify-center lg:justify-start">
               <img 
                 src="/IMG_2031.JPG" 
                 alt="Jose Algara - Supply Chain Executive and Leadership Coach" 
-                className="w-64 h-64 rounded-full object-cover object-[center_1%] border-2 border-gray-100 shadow-lg"
+                className="w-48 h-48 sm:w-64 sm:h-64 rounded-full object-cover object-[center_1%] border-2 border-gray-100 shadow-lg"
                 width="256"
                 height="256"
               />
             </div>
 
             <div className="lg:col-span-7">
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-5 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed">
                 <p>{t.hero.bio1}</p>
                 <p>{t.hero.bio2}</p>
                 <p>{t.hero.bio3}</p>
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
                   <button 
                     onClick={() => scrollToSection('contact')} 
-                    className="px-8 py-4 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors text-center"
                   >
                     {t.hero.cta1}
                   </button>
@@ -399,7 +467,7 @@ export default function Page() {
                     href="https://www.linkedin.com/in/jose-algara/" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="px-8 py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors text-center"
                   >
                     {t.hero.cta2}
                   </a>
@@ -411,18 +479,18 @@ export default function Page() {
       </section>
 
       {/* What I Do */}
-      <section id="services" className="py-24 px-8 bg-gray-50">
+      <section id="services" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-light mb-20">{t.services.title}</h2>
+          <h2 className="text-3xl sm:text-4xl font-light mb-12 sm:mb-20">{t.services.title}</h2>
           
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-16">
+          <div className="grid md:grid-cols-2 gap-x-8 sm:gap-x-16 gap-y-12 sm:gap-y-16">
             {['service1', 'service2', 'service3', 'service4'].map((serviceKey) => (
               <article key={serviceKey}>
-                <div className="flex items-baseline gap-4 mb-4">
-                  <span className="text-sm text-gray-400 font-mono">{t.services[serviceKey].number}</span>
-                  <h3 className="text-2xl font-medium">{t.services[serviceKey].title}</h3>
+                <div className="flex items-baseline gap-3 sm:gap-4 mb-3 sm:mb-4">
+                  <span className="text-xs sm:text-sm text-gray-400 font-mono">{t.services[serviceKey].number}</span>
+                  <h3 className="text-xl sm:text-2xl font-medium leading-snug">{t.services[serviceKey].title}</h3>
                 </div>
-                <p className="text-gray-600 leading-relaxed pl-10">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed pl-7 sm:pl-10">
                   {t.services[serviceKey].description}
                 </p>
               </article>
@@ -432,30 +500,30 @@ export default function Page() {
       </section>
 
       {/* My Approach */}
-      <section className="py-24 px-8">
+      <section className="py-16 sm:py-24 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-16">
+          <div className="grid lg:grid-cols-12 gap-8 sm:gap-16">
             <div className="lg:col-span-4">
-              <h2 className="text-4xl font-light mb-6">{t.approach.title}</h2>
+              <h2 className="text-3xl sm:text-4xl font-light mb-6">{t.approach.title}</h2>
             </div>
             <div className="lg:col-span-8">
-              <div className="space-y-8">
-                <p className="text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-6 sm:space-y-8">
+                <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                   {t.approach.intro}
                 </p>
                 
-                <div className="space-y-6">
+                <div className="space-y-5 sm:space-y-6">
                   {['people', 'processes', 'technology'].map((key) => (
                     <div key={key}>
-                      <h3 className="text-xl font-medium mb-2">{t.approach[key].title}</h3>
-                      <p className="text-gray-600 leading-relaxed">
+                      <h3 className="text-lg sm:text-xl font-medium mb-2">{t.approach[key].title}</h3>
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                         {t.approach[key].description}
                       </p>
                     </div>
                   ))}
                 </div>
                 
-                <p className="text-lg text-gray-600 leading-relaxed pt-4">
+                <p className="text-base sm:text-lg text-gray-600 leading-relaxed pt-4">
                   {t.approach.conclusion}
                 </p>
               </div>
@@ -465,18 +533,18 @@ export default function Page() {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="py-24 px-8 bg-gray-50">
+      <section id="blog" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-4xl font-light mb-4">{t.blog.title}</h2>
-            <p className="text-gray-600 text-lg">{t.blog.subtitle}</p>
+          <div className="mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4">{t.blog.title}</h2>
+            <p className="text-gray-600 text-base sm:text-lg">{t.blog.subtitle}</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
             {t.blog.posts.map((post, i) => (
               <article key={i} className="group cursor-pointer">
-                <div className="flex items-center gap-3 mb-4 text-sm text-gray-500">
-                  <span className="px-3 py-1 bg-white border border-gray-200 text-gray-700 text-xs font-medium">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4 text-xs sm:text-sm text-gray-500">
+                  <span className="px-2 sm:px-3 py-1 bg-white border border-gray-200 text-gray-700 text-xs font-medium">
                     {post.category}
                   </span>
                   <div className="flex items-center gap-1">
@@ -484,13 +552,13 @@ export default function Page() {
                     <span>{post.readTime}</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-medium mb-3 group-hover:text-gray-600 transition-colors leading-snug">
+                <h3 className="text-lg sm:text-xl font-medium mb-2 sm:mb-3 group-hover:text-gray-600 transition-colors leading-snug">
                   {post.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+                <p className="text-gray-600 leading-relaxed mb-3 sm:mb-4 text-xs sm:text-sm">
                   {post.excerpt}
                 </p>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
                   <Calendar size={14} aria-hidden="true" />
                   <time>{post.date}</time>
                 </div>
@@ -498,8 +566,8 @@ export default function Page() {
             ))}
           </div>
 
-          <div className="text-center mt-16">
-            <button className="px-8 py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors">
+          <div className="text-center mt-12 sm:mt-16">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors">
               {t.blog.viewAll}
             </button>
           </div>
@@ -507,31 +575,31 @@ export default function Page() {
       </section>
 
       {/* Testimonial */}
-      <section className="py-24 px-8">
+      <section className="py-16 sm:py-24 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <blockquote className="text-3xl font-light leading-relaxed text-gray-700 italic">
+          <blockquote className="text-2xl sm:text-3xl font-light leading-relaxed text-gray-700 italic">
             "{t.testimonial}"
           </blockquote>
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 px-8 bg-gray-50">
+      <section id="contact" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-6">{t.contact.title}</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-light mb-4 sm:mb-6">{t.contact.title}</h2>
+            <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
               {t.contact.subtitle}
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-16">
+          <div className="grid lg:grid-cols-12 gap-8 sm:gap-16">
             <div className="lg:col-span-7">
-              <div className="bg-white border border-gray-200 rounded-lg p-8">
-                <h3 className="text-2xl font-medium mb-6">{t.contact.bookConsultation}</h3>
+              <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8">
+                <h3 className="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">{t.contact.bookConsultation}</h3>
                 
-                <div className="space-y-6">
-                  <p className="text-gray-600 leading-relaxed">
+                <div className="space-y-4 sm:space-y-6">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {t.contact.bookDescription}
                   </p>
                   
@@ -539,12 +607,12 @@ export default function Page() {
                     href="https://calendly.com/jose-algara/30min" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="block w-full px-8 py-4 bg-black text-white text-center text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="block w-full px-6 sm:px-8 py-3 sm:py-4 bg-black text-white text-center text-sm font-medium hover:bg-gray-800 transition-colors"
                   >
                     {t.contact.scheduleCTA}
                   </a>
 
-                  <p className="text-sm text-gray-500 text-center">
+                  <p className="text-xs sm:text-sm text-gray-500 text-center">
                     {t.contact.sessionNote}
                   </p>
                 </div>
@@ -552,54 +620,54 @@ export default function Page() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
                 <div>
-                  <h3 className="text-xl font-medium mb-6">{t.contact.otherWays}</h3>
+                  <h3 className="text-lg sm:text-xl font-medium mb-4 sm:mb-6">{t.contact.otherWays}</h3>
                   
-                  <address className="space-y-4 not-italic">
+                  <address className="space-y-3 sm:space-y-4 not-italic">
                     <a 
                       href="https://www.linkedin.com/in/jose-algara/" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                      className="flex items-center gap-3 p-3 sm:p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
                     >
-                      <Linkedin className="text-gray-400 group-hover:text-gray-600" size={20} aria-hidden="true" />
+                      <Linkedin className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
                       <div>
-                        <div className="text-sm text-gray-500">{t.contact.linkedin}</div>
-                        <div className="font-medium group-hover:text-gray-600">{t.contact.connectWithMe}</div>
+                        <div className="text-xs sm:text-sm text-gray-500">{t.contact.linkedin}</div>
+                        <div className="text-sm sm:text-base font-medium group-hover:text-gray-600">{t.contact.connectWithMe}</div>
                       </div>
                     </a>
 
                     <a 
                       href="mailto:jose.algara@gmail.com"
-                      className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                      className="flex items-center gap-3 p-3 sm:p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
                     >
-                      <Mail className="text-gray-400 group-hover:text-gray-600" size={20} aria-hidden="true" />
+                      <Mail className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
                       <div>
-                        <div className="text-sm text-gray-500">{t.contact.email}</div>
-                        <div className="font-medium group-hover:text-gray-600">jose.algara@gmail.com</div>
+                        <div className="text-xs sm:text-sm text-gray-500">{t.contact.email}</div>
+                        <div className="text-sm sm:text-base font-medium group-hover:text-gray-600">jose.algara@gmail.com</div>
                       </div>
                     </a>
 
                     <a 
                       href="tel:+12062456474"
-                      className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                      className="flex items-center gap-3 p-3 sm:p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
                     >
-                      <Phone className="text-gray-400 group-hover:text-gray-600" size={20} aria-hidden="true" />
+                      <Phone className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
                       <div>
-                        <div className="text-sm text-gray-500">{t.contact.phone}</div>
-                        <div className="font-medium group-hover:text-gray-600">206-245-6474</div>
+                        <div className="text-xs sm:text-sm text-gray-500">{t.contact.phone}</div>
+                        <div className="text-sm sm:text-base font-medium group-hover:text-gray-600">206-245-6474</div>
                       </div>
                     </a>
                   </address>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-100 rounded-lg p-6">
-                  <h4 className="font-medium mb-3">{t.contact.whatToExpect}</h4>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 sm:p-6">
+                  <h4 className="text-sm sm:text-base font-medium mb-2 sm:mb-3">{t.contact.whatToExpect}</h4>
+                  <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-600">
                     {t.contact.expectations.map((expectation, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-0.5" aria-hidden="true">✓</span>
+                        <span className="text-blue-600 mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
                         <span>{expectation}</span>
                       </li>
                     ))}
@@ -612,10 +680,10 @@ export default function Page() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-8 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto flex justify-between items-center text-sm text-gray-500">
+      <footer className="py-8 sm:py-12 px-4 sm:px-8 border-t border-gray-100">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-gray-500">
           <div>{t.footer.copyright}</div>
-          <div className="flex gap-8">
+          <div className="flex gap-6 sm:gap-8">
             <a href="https://www.linkedin.com/in/jose-algara/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">
               {t.footer.linkedin}
             </a>
