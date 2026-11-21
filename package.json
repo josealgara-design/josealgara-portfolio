@@ -2,7 +2,7 @@
   "name": "jose-algara-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Professional portfolio website for Jose Algara - Supply Chain Transformation & Executive Leadership",
+  "description": "Coaching website for Jose Algara - career coaching and AI transformation",
   "author": "Jose Algara <jose.algara@gmail.com>",
   "scripts": {
     "dev": "next dev",

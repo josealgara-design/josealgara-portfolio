@@ -5,9 +5,9 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Jose Algara - Supply Chain Transformation & Executive Leadership',
-  description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.',
-  keywords: 'supply chain transformation, inventory management, executive coaching, AI automation, supply chain optimization, operations leadership, logistics consultant',
+  title: 'Jose Algara | Coaching de carrera y transformación con IA',
+  description: 'Coaching para profesionales y empresas que quieren crecer en la era de la IA. Más de 20 años liderando transformación digital en Amazon, Maersk, Flexport y Nordstrom.',
+  keywords: 'coaching de carrera, coaching ejecutivo, liderazgo, inteligencia artificial, transformación digital, adopción de IA, crecimiento profesional, career coaching',
   authors: [{ name: 'Jose Algara' }],
   creator: 'Jose Algara',
   publisher: 'Jose Algara',
@@ -19,14 +19,10 @@ export const metadata = {
   metadataBase: new URL('https://josealgara.com'),
   alternates: {
     canonical: '/',
-    languages: {
-      'en-US': '/en-US',
-      'es-ES': '/es-ES',
-    },
   },
   openGraph: {
-    title: 'Jose Algara - Supply Chain Transformation & Executive Leadership',
-    description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.',
+    title: 'Jose Algara | Coaching de carrera y transformación con IA',
+    description: 'Coaching para profesionales y empresas que quieren crecer en la era de la IA. Más de 20 años liderando transformación digital en Amazon, Maersk, Flexport y Nordstrom.',
     url: 'https://josealgara.com',
     siteName: 'Jose Algara',
     images: [
@@ -34,16 +30,17 @@ export const metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Jose Algara - Supply Chain Transformation Expert',
+        alt: 'Jose Algara - Coaching de carrera y transformación con IA',
       },
     ],
-    locale: 'en_US',
+    locale: 'es_419',
+    alternateLocale: ['en_US'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jose Algara - Supply Chain Transformation & Executive Leadership',
-    description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport.',
+    title: 'Jose Algara | Coaching de carrera y transformación con IA',
+    description: 'Coaching para profesionales y empresas que quieren crecer en la era de la IA. Más de 20 años liderando transformación digital en Amazon, Maersk, Flexport y Nordstrom.',
     images: ['/og-image.jpg'],
   },
   robots: {
@@ -75,12 +72,12 @@ export default function RootLayout({ children }) {
     sameAs: [
       'https://www.linkedin.com/in/jose-algara/',
     ],
-    jobTitle: 'VP Supply Chain & Inventory Management',
+    jobTitle: 'Career Coach & AI Transformation Advisor',
     worksFor: {
       '@type': 'Organization',
-      name: 'Independent Consultant',
+      name: 'Jose Algara Coaching',
     },
-    description: 'VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.',
+    description: 'Coaching para profesionales y empresas que quieren crecer en la era de la IA. Más de 20 años liderando transformación digital en Amazon, Maersk, Flexport y Nordstrom.',
     email: 'jose.algara@gmail.com',
     telephone: '+1-206-245-6474',
     address: {
@@ -90,10 +87,11 @@ export default function RootLayout({ children }) {
       addressCountry: 'US',
     },
     knowsAbout: [
-      'Supply Chain Management',
-      'Inventory Optimization',
-      'AI Strategy',
+      'Career Coaching',
       'Executive Coaching',
+      'AI Adoption',
+      'AI Strategy',
+      'Supply Chain Management',
       'Digital Transformation',
       'Operations Leadership',
       'Logistics',
@@ -120,7 +118,7 @@ export default function RootLayout({ children }) {
   }
 
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         {/* Structured Data */}
         <Script

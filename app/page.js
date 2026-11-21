@@ -1,680 +1,522 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Send, Mail, Phone, Linkedin, BookOpen, Calendar, Clock, Globe, Menu, X } from 'lucide-react';
+import { ArrowRight, Mail, Phone, Linkedin, Globe, Menu, X, Check, Users, Building2, Sparkles } from 'lucide-react';
+
+const CALENDLY_URL = 'https://calendly.com/jose-algara/30min';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/jose-algara/';
+const EMAIL = 'jose.algara@gmail.com';
+
+const translations = {
+  es: {
+    meta: {
+      title: 'Jose Algara | Coaching de carrera y transformación con IA',
+      description: 'Coaching para profesionales y empresas que quieren crecer en la era de la IA. Más de 20 años liderando transformación digital en Amazon, Maersk, Flexport y Nordstrom.',
+    },
+    nav: { offers: 'Coaching', companies: 'Empresas', about: 'Sobre mí', book: 'Reserva tu sesión' },
+    hero: {
+      eyebrow: 'Coaching de carrera y transformación con IA',
+      title: 'Haz crecer a tu gente y a tu organización en la era de la IA',
+      subtitle: 'Hola, soy Jose Algara. Llevo más de veinte años transformando cómo las compañías adoptan y desarrollan nuevas tecnologías para ser más eficientes. En Maersk integramos toda la operación global en una sola plataforma digital. En Nordstrom transformamos cómo nuestros productos llegan a los clientes, donde estén, de forma eficiente y con poca intervención humana en las decisiones. De esa experiencia nació mi framework para que las organizaciones adopten nuevas tecnologías con el uso de IA.',
+      cta1: 'Reserva tu sesión gratis de 30 minutos',
+      cta2: 'Coaching para tu empresa',
+      proof: ['20+ años liderando transformación', 'Equipos de 300 personas desde cero', '2 empresas fundadas en Latinoamérica'],
+    },
+    pains: {
+      title: '¿Te suena familiar?',
+      items: [
+        'Sientes que tu carrera se estancó y no sabes cuál es el siguiente paso.',
+        'Te ofrecieron liderar un equipo y nadie te enseñó cómo.',
+        'La IA está cambiando tu trabajo y quieres estar del lado que gana.',
+      ],
+      close: 'No tienes que resolverlo solo. Trabajemos juntos en un plan concreto.',
+    },
+    offers: {
+      title: 'Coaching 1:1',
+      intro: 'Sesiones de 60 minutos por videollamada. Cada plan se ajusta a lo que necesitas; el punto exacto lo definimos juntos en la sesión de diagnóstico.',
+      base: 'USD 250 por sesión · USD 1,000 al mes (4 sesiones)',
+      from: 'USD',
+      book: 'Empezar con una sesión gratis',
+      items: [
+        {
+          name: 'Sesión de diagnóstico',
+          price: 'Gratis',
+          format: '30 minutos',
+          desc: 'Hablamos de dónde estás, a dónde quieres llegar y si el coaching es para ti. Sin compromiso.',
+        },
+        {
+          name: 'Impulso de carrera',
+          price: 'USD 1,000 a 2,000',
+          format: '1 a 2 meses · 4 a 8 sesiones',
+          desc: 'Para profesionales que buscan un ascenso o un cambio de rol. Sales con un plan de carrera escrito y los próximos pasos claros.',
+          featured: true,
+        },
+        {
+          name: 'Liderazgo en la era de la IA',
+          price: 'USD 3,000 a 4,000',
+          format: '3 a 4 meses · 12 a 16 sesiones',
+          desc: 'Para gerentes y directores que lideran equipos mientras la IA cambia cómo trabajan. Incluye acceso por mensaje entre sesiones.',
+        },
+      ],
+    },
+    companies: {
+      title: 'Para empresas: escala tu organización con IA',
+      intro: 'Adoptar IA no es comprar herramientas, es cambiar cómo trabaja tu gente. Te ayudo a encontrar dónde la IA genera valor, a llevarla de la idea a producción en semanas y a preparar a tus líderes para escalar el nuevo modelo de trabajo.',
+      items: [
+        {
+          name: 'Diagnóstico de adopción de IA',
+          format: '2 a 4 semanas',
+          desc: 'Entrevistas con tu equipo directivo, mapa de oportunidades donde la IA genera valor y una hoja de ruta priorizada.',
+        },
+        {
+          name: 'Escalar tu organización con IA',
+          format: '3 a 6 meses',
+          desc: 'Coaching 1:1 para tus líderes, talleres prácticos para los equipos y acompañamiento mientras adoptan el nuevo modelo de trabajo.',
+        },
+      ],
+      price: 'Cotización a medida',
+      cta: 'Hablemos de tu empresa',
+    },
+    about: {
+      title: 'Sobre mí',
+      paragraphs: [
+        'Soy ingeniero mecatrónico del Tec de Monterrey y tengo un MBA del IE Business School en Madrid. Empecé emprendiendo: cofundé Linio en México y dirigí Easy Taxi en 7 países de Latinoamérica, con un equipo de 350 personas.',
+        'Después lideré producto y tecnología en Amazon, Maersk y Flexport. En Amazon construí un equipo de 300 personas desde cero, y en Maersk integré organizaciones en adquisiciones por más de USD 6 mil millones.',
+        'Lo que más me define es llevar lo aprendido en empresas tech a empresas que no lo son. Hoy, como VP en Nordstrom, impulso cómo la compañía adopta un modelo nativo de IA para desarrollar y adoptar nuevas tecnologías.',
+      ],
+      creds: ['MBA, IE Business School', 'Ingeniería Mecatrónica, Tec de Monterrey', 'Certificación PMP', '4 patentes en EE. UU.'],
+    },
+    method: {
+      title: 'Mi método',
+      intro: 'El crecimiento que dura trabaja tres niveles a la vez:',
+      items: [
+        { name: 'Personas', desc: 'Tu forma de liderar, comunicar y decidir. La tecnología sola nunca gana: gana la gente que sabe usarla.' },
+        { name: 'Procesos', desc: 'Cómo organizas tu trabajo y el de tu equipo para avanzar rápido y adaptarte cuando el mercado cambia.' },
+        { name: 'Tecnología', desc: 'Usar la IA a tu favor, con criterio de negocio y no por moda.' },
+      ],
+    },
+    contact: {
+      title: 'Reserva tu sesión gratis',
+      subtitle: '30 minutos por videollamada para conocernos, entender tu situación y ver si puedo ayudarte.',
+      expectTitle: 'En la sesión',
+      expect: ['Hablamos de tu situación actual', 'Identificamos tus prioridades', 'Te propongo un plan y los próximos pasos', 'Sin compromiso'],
+      cta: 'Elegir horario',
+      other: 'Otras formas de contacto',
+      linkedin: 'LinkedIn',
+      email: 'Correo',
+      phone: 'Teléfono',
+    },
+    footer: { rights: 'Jose Algara' },
+  },
+  en: {
+    meta: {
+      title: 'Jose Algara | Career coaching and AI transformation',
+      description: 'Coaching for professionals and companies that want to grow in the age of AI. 20+ years leading digital transformation at Amazon, Maersk, Flexport and Nordstrom.',
+    },
+    nav: { offers: 'Coaching', companies: 'Companies', about: 'About', book: 'Book your session' },
+    hero: {
+      eyebrow: 'Career coaching and AI transformation',
+      title: 'Grow your people and your organization in the age of AI',
+      subtitle: "Hi, I'm Jose Algara. For more than twenty years I've been transforming how companies adopt and build new technologies to become more efficient. At Maersk we integrated the entire global operation into a single digital platform. At Nordstrom we transformed how our products reach customers wherever they are, efficiently and with little human intervention in decisions. From that experience I built a framework that helps organizations adopt new technologies using AI.",
+      cta1: 'Book your free 30-minute session',
+      cta2: 'Coaching for your company',
+      proof: ['20+ years leading transformation', 'Built 300-person teams from zero', 'Founded 2 companies in Latin America'],
+    },
+    pains: {
+      title: 'Sound familiar?',
+      items: [
+        "You feel your career has stalled and you don't know the next step.",
+        'You were asked to lead a team and nobody taught you how.',
+        'AI is changing your job and you want to be on the winning side.',
+      ],
+      close: "You don't have to figure it out alone. Let's build a concrete plan together.",
+    },
+    offers: {
+      title: '1:1 coaching',
+      intro: '60-minute video sessions. Every plan adapts to what you need; we set the details together in the discovery session.',
+      base: 'USD 250 per session · USD 1,000 per month (4 sessions)',
+      from: 'USD',
+      book: 'Start with a free session',
+      items: [
+        {
+          name: 'Discovery session',
+          price: 'Free',
+          format: '30 minutes',
+          desc: "We talk about where you are, where you want to go, and whether coaching is right for you. No obligation.",
+        },
+        {
+          name: 'Career boost',
+          price: 'USD 1,000 to 2,000',
+          format: '1 to 2 months · 4 to 8 sessions',
+          desc: 'For professionals going for a promotion or a role change. You leave with a written career plan and clear next steps.',
+          featured: true,
+        },
+        {
+          name: 'Leadership in the age of AI',
+          price: 'USD 3,000 to 4,000',
+          format: '3 to 4 months · 12 to 16 sessions',
+          desc: 'For managers and directors leading teams while AI changes how they work. Includes messaging access between sessions.',
+        },
+      ],
+    },
+    companies: {
+      title: 'For companies: scale your organization with AI',
+      intro: "Adopting AI isn't buying tools, it's changing how your people work. I help you find where AI creates value, take it from idea to production in weeks, and prepare your leaders to scale the new way of working.",
+      items: [
+        {
+          name: 'AI adoption assessment',
+          format: '2 to 4 weeks',
+          desc: 'Interviews with your leadership team, a map of where AI creates value, and a prioritized roadmap.',
+        },
+        {
+          name: 'Scale your organization with AI',
+          format: '3 to 6 months',
+          desc: '1:1 coaching for your leaders, hands-on workshops for teams, and support while they adopt the new way of working.',
+        },
+      ],
+      price: 'Custom quote',
+      cta: "Let's talk about your company",
+    },
+    about: {
+      title: 'About me',
+      paragraphs: [
+        "I'm a mechatronics engineer from Tec de Monterrey with an MBA from IE Business School in Madrid. I started as an entrepreneur: I co-founded Linio in Mexico and ran Easy Taxi across 7 Latin American countries with a 350-person team.",
+        'Then I led product and technology at Amazon, Maersk and Flexport. At Amazon I built a 300-person organization from zero, and at Maersk I integrated organizations across more than USD 6 billion in acquisitions.',
+        "What defines me most is bringing what I learned at tech companies to companies that aren't. Today, as a VP at Nordstrom, I help drive how the company is adopting an AI-native model to build and adopt new technologies.",
+      ],
+      creds: ['MBA, IE Business School', 'Mechatronics Engineering, Tec de Monterrey', 'PMP certified', '4 U.S. patents'],
+    },
+    method: {
+      title: 'My approach',
+      intro: 'Lasting growth works on three levels at once:',
+      items: [
+        { name: 'People', desc: 'How you lead, communicate and decide. Technology alone never wins: people who know how to use it do.' },
+        { name: 'Processes', desc: 'How you organize your work and your team to move fast and adapt when markets change.' },
+        { name: 'Technology', desc: 'Using AI in your favor, with business judgment rather than hype.' },
+      ],
+    },
+    contact: {
+      title: 'Book your free session',
+      subtitle: '30 minutes on video to get to know each other, understand your situation and see if I can help.',
+      expectTitle: 'In the session',
+      expect: ['We discuss where you are today', 'We identify your priorities', 'I propose a plan and next steps', 'No obligation'],
+      cta: 'Pick a time',
+      other: 'Other ways to connect',
+      linkedin: 'LinkedIn',
+      email: 'Email',
+      phone: 'Phone',
+    },
+    footer: { rights: 'Jose Algara' },
+  },
+};
 
 export default function Page() {
-  const [language, setLanguage] = useState('en'); // 'en' or 'es'
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [language, setLanguage] = useState('es');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Update HTML lang attribute when language changes
-  useEffect(() => {
-    document.documentElement.lang = language;
-    
-    // Update meta tags dynamically
-    const metaDescription = document.querySelector('meta[name="description"]');
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    
-    if (metaDescription) {
-      metaDescription.setAttribute('content', translations[language].meta.description);
-    }
-    if (metaKeywords) {
-      metaKeywords.setAttribute('content', translations[language].meta.keywords);
-    }
-    
-    // Update page title
-    document.title = translations[language].meta.title;
-  }, [language]);
-
-  // Translations object
-  const translations = {
-    en: {
-      meta: {
-        title: "Jose Algara - Supply Chain Transformation & Executive Leadership",
-        description: "VP Supply Chain leader with 20+ years transforming operations at Amazon, Nordstrom, Maersk & Flexport. Expert in AI-powered optimization, inventory management, and executive coaching.",
-        keywords: "supply chain transformation, inventory management, executive coaching, AI automation, supply chain optimization, operations leadership, logistics consultant"
-      },
-      nav: {
-        whatIDo: "What I Do",
-        insights: "Insights",
-        contact: "Contact"
-      },
-      hero: {
-        title1: "Transform your Supply Chain",
-        title2: "into a Value Engine",
-        bio1: "With 20+ years optimizing supply chains, leading digital transformations and building technology for companies like Amazon, Nordstrom, A.P. Moeller Maersk and Flexport, I help companies turn their supply chains into a strategic advantage.",
-        bio2: "Launching companies and leading operations across 12 countries taught me this: lasting transformation requires multi-year vision built incrementally with laser-focused execution. Today, I leverage AI to modernize supply chains—optimizing the flow of merchandise from manufacturing floors to customers' hands.",
-        bio3: "I create solutions that scale with growth and pivot with change, turning operational complexity into competitive advantage.",
-        cta1: "Let's work together",
-        cta2: "LinkedIn"
-      },
-      services: {
-        title: "What I Do",
-        service1: {
-          number: "01",
-          title: "Supply Chain Transformation: From Cost Center to Competitive Advantage",
-          description: "I transform global supply chains into resilient competitive advantages by combining aggressive operational restructuring with enterprise-grade digital transformation, delivering immediate and sustainable P&L impact. This approach consistently unlocks significant working capital through tighter inventory control and drives double-digit margin expansion, while stabilizing and accelerating complex networks to drastically improve service reliability and on-time performance through automated network strategies."
-        },
-        service2: {
-          number: "02",
-          title: "Executive Leadership Coaching: Accelerate Your Growth",
-          description: "I provide executive leadership coaching based on real-world success, specifically designed to accelerate the transition of high-potential leaders into the C-Suite by leveraging my experience driving massive organizational transformation. My framework coaches leaders on how to successfully architect and scale product and engineering teams (from 1 to over 300 people), define the digital strategy and multi-year roadmaps necessary for billion-dollar operations, and establish leadership frameworks that improve team velocity, quality of deliverables, and measurable organizational cost reduction."
-        },
-        service3: {
-          number: "03",
-          title: "Operational Maturity Assessment: A VP's Perspective",
-          description: "I offer a comprehensive operational maturity assessment framework derived from building, restructuring, and running large-scale supply chains for leaders like Amazon, Nordstrom, and Maersk, providing a data-driven diagnostic that is strictly non-theoretical. This assessment identifies gaps, benchmarks performance against the highest industry standards, and delivers a prioritized, battle-tested roadmap that includes clear ROI expectations grounded in real-world transformation results."
-        },
-        service4: {
-          number: "04",
-          title: "AIML & Automation Strategy: Business Value over Technology",
-          description: "I specialize in defining and executing AI and automation strategies that directly convert technical capability into business value, not technology for its own sake. Leveraging experience leading the implementation of AI-powered forecasting and optimization engines across global operations, I help executives prioritize quick-win opportunities and ensure the deployment of solutions are responsible, scalable AI systems designed to drive core organizational metrics, such as improved on-time delivery or optimized inventory control."
-        }
-      },
-      approach: {
-        title: "My Approach",
-        intro: "I've found that the most successful supply chain transformations happen when we address three levels simultaneously:",
-        people: {
-          title: "People",
-          description: "I coach leaders to become strategists who can scale teams from 1 to 300+. Building the right culture and capabilities is foundational—technology alone never wins."
-        },
-        processes: {
-          title: "Processes",
-          description: "I reimagine workflows through innovation and emerging technologies, ensuring operations are both efficient and flexible enough to pivot when markets change."
-        },
-        technology: {
-          title: "Technology",
-          description: "I deploy cutting-edge solutions—from AI-powered forecasting to enterprise systems—that create measurable competitive advantage. The right tools amplify great strategy."
-        },
-        conclusion: "This comprehensive approach is what turns operations from cost centers into growth engines."
-      },
-      blog: {
-        title: "Insights & Perspectives",
-        subtitle: "Thoughts on supply chain, AI, and operational excellence",
-        posts: [
-          {
-            title: "AI-Powered Demand Forecasting: The Future of Inventory Management",
-            excerpt: "Discover how artificial intelligence is revolutionizing demand forecasting accuracy and reducing stockouts by up to 40%.",
-            date: "November 2024",
-            readTime: "8 min read",
-            category: "AI & Technology"
-          },
-          {
-            title: "From 1 to 300: Scaling High-Performance Supply Chain Teams",
-            excerpt: "Lessons learned building and scaling operations teams across Fortune 500 companies and startups.",
-            date: "October 2024",
-            readTime: "6 min read",
-            category: "Leadership"
-          },
-          {
-            title: "The Hidden Cost of Inventory: Beyond Carrying Costs",
-            excerpt: "Why traditional inventory metrics miss the mark and what you should be measuring instead.",
-            date: "September 2024",
-            readTime: "5 min read",
-            category: "Strategy"
-          }
-        ],
-        viewAll: "View All Articles"
-      },
-      testimonial: "Transformed supply chain from reactive to proactive, cutting lead times in half while reducing inventory carrying costs by 28%.",
-      contact: {
-        title: "Let's Connect",
-        subtitle: "Ready to transform your supply chain operations? Schedule a conversation to discuss how we can work together.",
-        bookConsultation: "Book a Consultation",
-        bookDescription: "Select a time that works for you, and we'll discuss your supply chain challenges and opportunities.",
-        scheduleCTA: "Schedule a Call",
-        sessionNote: "Typical initial consultation sessions are 15-30 minutes",
-        otherWays: "Other Ways to Connect",
-        linkedin: "LinkedIn",
-        connectWithMe: "Connect with me",
-        email: "Email",
-        phone: "Phone",
-        whatToExpect: "What to Expect",
-        expectations: [
-          "Discussion of your current challenges",
-          "Assessment of opportunities",
-          "Potential approaches and next steps",
-          "No obligation conversation"
-        ]
-      },
-      footer: {
-        copyright: "© 2025 Jose Algara",
-        linkedin: "LinkedIn",
-        email: "Email"
-      },
-      form: {
-        fillAllFields: "Please fill in all fields",
-        errorMessage: "Something went wrong. Please try emailing directly at jose.algara@gmail.com"
-      }
-    },
-    es: {
-      meta: {
-        title: "Jose Algara - Transformación de Cadena de Suministro y Liderazgo Ejecutivo",
-        description: "Líder VP de Cadena de Suministro con más de 20 años transformando operaciones en Amazon, Nordstrom, Maersk y Flexport. Experto en optimización con IA, gestión de inventario y coaching ejecutivo.",
-        keywords: "transformación cadena de suministro, gestión de inventario, coaching ejecutivo, automatización IA, optimización logística, liderazgo operacional, consultor logística"
-      },
-      nav: {
-        whatIDo: "Qué Hago",
-        insights: "Perspectivas",
-        contact: "Contacto"
-      },
-      hero: {
-        title1: "Transforma tu Cadena de Suministro",
-        title2: "en un Motor de Valor",
-        bio1: "Con más de 20 años optimizando cadenas de suministro, liderando transformaciones digitales y construyendo tecnología para empresas como Amazon, Nordstrom, A.P. Moeller Maersk y Flexport, ayudo a las compañías a convertir sus cadenas de suministro en una ventaja estratégica.",
-        bio2: "Lanzar empresas y liderar operaciones en 12 países me enseñó esto: la transformación duradera requiere una visión de varios años construida incrementalmente con una ejecución enfocada. Hoy, aprovecho la IA para modernizar las cadenas de suministro, optimizando el flujo de mercancías desde las plantas de fabricación hasta las manos de los clientes.",
-        bio3: "Creo soluciones que escalan con el crecimiento y se adaptan al cambio, convirtiendo la complejidad operacional en ventaja competitiva.",
-        cta1: "Trabajemos juntos",
-        cta2: "LinkedIn"
-      },
-      services: {
-        title: "Qué Hago",
-        service1: {
-          number: "01",
-          title: "Transformación de Cadena de Suministro: De Centro de Costos a Ventaja Competitiva",
-          description: "Transformo cadenas de suministro globales en ventajas competitivas resilientes combinando una reestructuración operacional agresiva con transformación digital de nivel empresarial, entregando impacto inmediato y sostenible en el P&L. Este enfoque libera consistentemente capital de trabajo significativo a través de un control de inventario más estricto e impulsa una expansión de márgenes de dos dígitos, mientras estabiliza y acelera redes complejas para mejorar drásticamente la confiabilidad del servicio y el rendimiento de entregas a tiempo mediante estrategias de red automatizadas."
-        },
-        service2: {
-          number: "02",
-          title: "Coaching de Liderazgo Ejecutivo: Acelera tu Crecimiento",
-          description: "Proporciono coaching de liderazgo ejecutivo basado en éxito del mundo real, específicamente diseñado para acelerar la transición de líderes de alto potencial al C-Suite aprovechando mi experiencia impulsando transformación organizacional masiva. Mi marco entrena a los líderes sobre cómo arquitecturar y escalar exitosamente equipos de producto e ingeniería (de 1 a más de 300 personas), definir la estrategia digital y hojas de ruta multianuales necesarias para operaciones de miles de millones de dólares, y establecer marcos de liderazgo que mejoren la velocidad del equipo, la calidad de los entregables y la reducción medible de costos organizacionales."
-        },
-        service3: {
-          number: "03",
-          title: "Evaluación de Madurez Operacional: Perspectiva de un VP",
-          description: "Ofrezco un marco integral de evaluación de madurez operacional derivado de construir, reestructurar y dirigir cadenas de suministro a gran escala para líderes como Amazon, Nordstrom y Maersk, proporcionando un diagnóstico basado en datos que es estrictamente no teórico. Esta evaluación identifica brechas, compara el rendimiento con los más altos estándares de la industria y entrega una hoja de ruta priorizada y probada en batalla que incluye expectativas claras de ROI fundamentadas en resultados reales de transformación."
-        },
-        service4: {
-          number: "04",
-          title: "Estrategia de IA/ML y Automatización: Valor de Negocio sobre Tecnología",
-          description: "Me especializo en definir y ejecutar estrategias de IA y automatización que convierten directamente la capacidad técnica en valor de negocio, no tecnología por sí misma. Aprovechando la experiencia liderando la implementación de pronósticos impulsados por IA y motores de optimización en operaciones globales, ayudo a los ejecutivos a priorizar oportunidades de victorias rápidas y asegurar el despliegue de soluciones que son sistemas de IA responsables y escalables diseñados para impulsar métricas organizacionales centrales, como mejorar la entrega a tiempo o optimizar el control de inventario."
-        }
-      },
-      approach: {
-        title: "Mi Enfoque",
-        intro: "He descubierto que las transformaciones de cadena de suministro más exitosas ocurren cuando abordamos tres niveles simultáneamente:",
-        people: {
-          title: "Personas",
-          description: "Entreno a los líderes para que se conviertan en estrategas que puedan escalar equipos de 1 a más de 300. Construir la cultura y las capacidades correctas es fundamental: la tecnología sola nunca gana."
-        },
-        processes: {
-          title: "Procesos",
-          description: "Reimagino los flujos de trabajo a través de la innovación y las tecnologías emergentes, asegurando que las operaciones sean eficientes y lo suficientemente flexibles para adaptarse cuando los mercados cambien."
-        },
-        technology: {
-          title: "Tecnología",
-          description: "Implemento soluciones de vanguardia, desde pronósticos impulsados por IA hasta sistemas empresariales, que crean una ventaja competitiva medible. Las herramientas correctas amplifican la gran estrategia."
-        },
-        conclusion: "Este enfoque integral es lo que convierte las operaciones de centros de costos en motores de crecimiento."
-      },
-      blog: {
-        title: "Perspectivas e Ideas",
-        subtitle: "Reflexiones sobre cadena de suministro, IA y excelencia operacional",
-        posts: [
-          {
-            title: "Pronóstico de Demanda Impulsado por IA: El Futuro de la Gestión de Inventario",
-            excerpt: "Descubre cómo la inteligencia artificial está revolucionando la precisión del pronóstico de demanda y reduciendo los quiebres de stock hasta en un 40%.",
-            date: "Noviembre 2024",
-            readTime: "8 min de lectura",
-            category: "IA & Tecnología"
-          },
-          {
-            title: "De 1 a 300: Escalando Equipos de Cadena de Suministro de Alto Rendimiento",
-            excerpt: "Lecciones aprendidas construyendo y escalando equipos de operaciones en empresas Fortune 500 y startups.",
-            date: "Octubre 2024",
-            readTime: "6 min de lectura",
-            category: "Liderazgo"
-          },
-          {
-            title: "El Costo Oculto del Inventario: Más Allá de los Costos de Mantenimiento",
-            excerpt: "Por qué las métricas tradicionales de inventario no son suficientes y qué deberías medir en su lugar.",
-            date: "Septiembre 2024",
-            readTime: "5 min de lectura",
-            category: "Estrategia"
-          }
-        ],
-        viewAll: "Ver Todos los Artículos"
-      },
-      testimonial: "Transformó la cadena de suministro de reactiva a proactiva, reduciendo los tiempos de entrega a la mitad mientras disminuía los costos de mantenimiento de inventario en un 28%.",
-      contact: {
-        title: "Conectemos",
-        subtitle: "¿Listo para transformar tus operaciones de cadena de suministro? Agenda una conversación para discutir cómo podemos trabajar juntos.",
-        bookConsultation: "Agenda una Consulta",
-        bookDescription: "Selecciona un horario que te funcione y discutiremos tus desafíos y oportunidades de cadena de suministro.",
-        scheduleCTA: "Agendar una Llamada",
-        sessionNote: "Las sesiones de consulta inicial típicas son de 15-30 minutos",
-        otherWays: "Otras Formas de Contactar",
-        linkedin: "LinkedIn",
-        connectWithMe: "Conéctate conmigo",
-        email: "Correo Electrónico",
-        phone: "Teléfono",
-        whatToExpect: "Qué Esperar",
-        expectations: [
-          "Discusión de tus desafíos actuales",
-          "Evaluación de oportunidades",
-          "Enfoques potenciales y próximos pasos",
-          "Conversación sin obligación"
-        ]
-      },
-      footer: {
-        copyright: "© 2025 Jose Algara",
-        linkedin: "LinkedIn",
-        email: "Correo"
-      },
-      form: {
-        fillAllFields: "Por favor completa todos los campos",
-        errorMessage: "Algo salió mal. Por favor intenta enviar un correo directamente a jose.algara@gmail.com"
-      }
-    }
-  };
-
   const t = translations[language];
 
-  const handleInputChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      alert(t.form.fillAllFields);
-      return;
-    }
-
-    setSubmitting(true);
-
+  useEffect(() => {
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const saved = window.localStorage.getItem('lang');
+      if (saved === 'en' || saved === 'es') setLanguage(saved);
+    } catch (e) {}
+  }, []);
 
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => setSubmitted(false), 5000);
-      } else {
-        alert(t.form.errorMessage);
-      }
-    } catch (error) {
-      alert(t.form.errorMessage);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.title = translations[language].meta.title;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute('content', translations[language].meta.description);
+    try { window.localStorage.setItem('lang', language); } catch (e) {}
+  }, [language]);
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenuOpen(false);
   };
+
+  const LangToggle = ({ small }) => (
+    <div className="flex items-center gap-1.5">
+      <Globe size={small ? 14 : 16} className="text-gray-400" aria-hidden="true" />
+      {['es', 'en'].map((lng, i) => (
+        <React.Fragment key={lng}>
+          {i > 0 && <span className="text-gray-300 text-xs">/</span>}
+          <button
+            onClick={() => setLanguage(lng)}
+            className={`${small ? 'text-xs' : 'text-sm'} font-medium transition-colors ${language === lng ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'}`}
+            aria-label={lng === 'es' ? 'Cambiar a Español' : 'Switch to English'}
+            aria-pressed={language === lng}
+          >
+            {lng.toUpperCase()}
+          </button>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+
+  const BookButton = ({ children, className = '' }) => (
+    <a
+      href={CALENDLY_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors text-center ${className}`}
+    >
+      {children}
+      <ArrowRight size={16} aria-hidden="true" />
+    </a>
+  );
+
+  const navItems = [
+    ['offers', t.nav.offers],
+    ['companies', t.nav.companies],
+    ['about', t.nav.about],
+  ];
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-4 sm:py-6">
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-4">
           <div className="flex justify-between items-center">
-            {/* Logo */}
-            <button onClick={() => scrollToSection('hero')} className="text-lg sm:text-xl font-medium" aria-label="Home">
+            <button onClick={() => scrollToSection('hero')} className="text-lg sm:text-xl font-medium tracking-tight">
               Jose Algara
             </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8 lg:gap-10">
-              <button onClick={() => scrollToSection('services')} className="text-sm hover:text-gray-600 transition-colors">
-                {t.nav.whatIDo}
-              </button>
-              <button onClick={() => scrollToSection('blog')} className="text-sm hover:text-gray-600 transition-colors">
-                {t.nav.insights}
-              </button>
-              <button onClick={() => scrollToSection('contact')} className="text-sm hover:text-gray-600 transition-colors">
-                {t.nav.contact}
-              </button>
-              
-              {/* Language Toggle - Desktop */}
-              <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
-                <Globe size={16} className="text-gray-400" aria-hidden="true" />
-                <button
-                  onClick={() => setLanguage('en')}
-                  className={`text-sm font-medium transition-colors ${
-                    language === 'en' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'
-                  }`}
-                  aria-label="Switch to English"
-                >
-                  EN
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map(([id, label]) => (
+                <button key={id} onClick={() => scrollToSection(id)} className="text-sm hover:text-gray-600 transition-colors">
+                  {label}
                 </button>
-                <span className="text-gray-300">/</span>
-                <button
-                  onClick={() => setLanguage('es')}
-                  className={`text-sm font-medium transition-colors ${
-                    language === 'es' ? 'text-gray-900' : 'text-gray-400 hover:text-gray-600'
-                  }`}
-                  aria-label="Cambiar a Español"
-                >
-                  ES
-                </button>
+              ))}
+              <button onClick={() => scrollToSection('contact')} className="text-sm px-4 py-2 bg-black text-white hover:bg-gray-800 transition-colors">
+                {t.nav.book}
+              </button>
+              <div className="pl-4 border-l border-gray-200">
+                <LangToggle />
               </div>
             </div>
 
-            {/* Mobile Menu Button & Language Toggle */}
             <div className="flex items-center gap-4 md:hidden">
-              {/* Language Toggle - Mobile */}
-              <div className="flex items-center gap-1.5">
-                <Globe size={14} className="text-gray-400" aria-hidden="true" />
-                <button
-                  onClick={() => setLanguage('en')}
-                  className={`text-xs font-medium transition-colors ${
-                    language === 'en' ? 'text-gray-900' : 'text-gray-400'
-                  }`}
-                  aria-label="Switch to English"
-                >
-                  EN
-                </button>
-                <span className="text-gray-300 text-xs">/</span>
-                <button
-                  onClick={() => setLanguage('es')}
-                  className={`text-xs font-medium transition-colors ${
-                    language === 'es' ? 'text-gray-900' : 'text-gray-400'
-                  }`}
-                  aria-label="Cambiar a Español"
-                >
-                  ES
-                </button>
-              </div>
-
+              <LangToggle small />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
 
-          {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden pt-4 pb-2 border-t border-gray-100 mt-4">
-              <div className="flex flex-col space-y-3">
-                <button 
-                  onClick={() => scrollToSection('services')} 
-                  className="text-left py-2 text-sm hover:text-gray-600 transition-colors"
-                >
-                  {t.nav.whatIDo}
+            <div className="md:hidden pt-4 pb-2 border-t border-gray-100 mt-4 flex flex-col space-y-3">
+              {navItems.map(([id, label]) => (
+                <button key={id} onClick={() => scrollToSection(id)} className="text-left py-2 text-sm hover:text-gray-600 transition-colors">
+                  {label}
                 </button>
-                <button 
-                  onClick={() => scrollToSection('blog')} 
-                  className="text-left py-2 text-sm hover:text-gray-600 transition-colors"
-                >
-                  {t.nav.insights}
-                </button>
-                <button 
-                  onClick={() => scrollToSection('contact')} 
-                  className="text-left py-2 text-sm hover:text-gray-600 transition-colors"
-                >
-                  {t.nav.contact}
-                </button>
-              </div>
+              ))}
+              <button onClick={() => scrollToSection('contact')} className="text-left py-2 text-sm font-medium">
+                {t.nav.book}
+              </button>
             </div>
           )}
         </div>
       </nav>
 
       {/* Hero */}
-      <section id="hero" className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-8">
+      <section id="hero" className="pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div className="lg:col-span-7 order-2 lg:order-1">
+            <p className="text-xs sm:text-sm uppercase tracking-widest text-gray-500 mb-4">{t.hero.eyebrow}</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6">{t.hero.title}</h1>
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">{t.hero.subtitle}</p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <BookButton className="w-full sm:w-auto">{t.hero.cta1}</BookButton>
+              <button
+                onClick={() => scrollToSection('companies')}
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-gray-300 text-sm font-medium hover:border-gray-500 transition-colors"
+              >
+                {t.hero.cta2}
+              </button>
+            </div>
+          </div>
+          <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center">
+            <img
+              src="/IMG_2031.JPG"
+              alt="Jose Algara"
+              className="w-48 h-48 sm:w-72 sm:h-72 rounded-full object-cover object-[center_1%] border-2 border-gray-100 shadow-lg"
+              width="288"
+              height="288"
+            />
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto mt-14 sm:mt-20 grid sm:grid-cols-3 gap-4 sm:gap-8 border-t border-gray-100 pt-8">
+          {t.hero.proof.map((p) => (
+            <div key={p} className="text-sm sm:text-base text-gray-700 font-medium">{p}</div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pains */}
+      <section className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-light mb-10">{t.pains.title}</h2>
+          <ul className="space-y-5">
+            {t.pains.items.map((item) => (
+              <li key={item} className="flex items-start gap-4 text-base sm:text-lg text-gray-700">
+                <Check size={20} className="text-gray-900 mt-1 flex-shrink-0" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-10 text-base sm:text-lg text-gray-600">{t.pains.close}</p>
+        </div>
+      </section>
+
+      {/* 1:1 offers */}
+      <section id="offers" className="py-16 sm:py-24 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 sm:mb-20">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-light leading-tight px-4">
-              {t.hero.title1}<br className="hidden sm:block" />
-              <span className="sm:inline"> </span>{t.hero.title2}
-            </h1>
+          <div className="flex items-center gap-3 mb-4">
+            <Users size={22} aria-hidden="true" />
+            <h2 className="text-3xl sm:text-4xl font-light">{t.offers.title}</h2>
+          </div>
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mb-2">{t.offers.intro}</p>
+          <p className="text-sm font-medium text-gray-900 mb-12">{t.offers.base}</p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {t.offers.items.map((o) => (
+              <article
+                key={o.name}
+                className={`flex flex-col p-6 sm:p-8 border rounded-lg ${o.featured ? 'border-gray-900 shadow-md' : 'border-gray-200'}`}
+              >
+                <h3 className="text-xl font-medium mb-1">{o.name}</h3>
+                <p className="text-sm text-gray-500 mb-4">{o.format}</p>
+                <p className="text-2xl font-light mb-4">{o.price}</p>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed flex-1">{o.desc}</p>
+              </article>
+            ))}
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-8 sm:gap-16 items-start">
-            <div className="lg:col-span-5 flex justify-center lg:justify-start">
-              <img 
-                src="/IMG_2031.JPG" 
-                alt="Jose Algara - Supply Chain Executive and Leadership Coach" 
-                className="w-48 h-48 sm:w-64 sm:h-64 rounded-full object-cover object-[center_1%] border-2 border-gray-100 shadow-lg"
-                width="256"
-                height="256"
-              />
-            </div>
-
-            <div className="lg:col-span-7">
-              <div className="space-y-5 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed">
-                <p>{t.hero.bio1}</p>
-                <p>{t.hero.bio2}</p>
-                <p>{t.hero.bio3}</p>
-
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
-                  <button 
-                    onClick={() => scrollToSection('contact')} 
-                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors text-center"
-                  >
-                    {t.hero.cta1}
-                  </button>
-                  <a 
-                    href="https://www.linkedin.com/in/jose-algara/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors text-center"
-                  >
-                    {t.hero.cta2}
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div className="mt-10">
+            <BookButton className="w-full sm:w-auto">{t.offers.book}</BookButton>
           </div>
         </div>
       </section>
 
-      {/* What I Do */}
-      <section id="services" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
+      {/* Companies */}
+      <section id="companies" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-light mb-12 sm:mb-20">{t.services.title}</h2>
-          
-          <div className="grid md:grid-cols-2 gap-x-8 sm:gap-x-16 gap-y-12 sm:gap-y-16">
-            {['service1', 'service2', 'service3', 'service4'].map((serviceKey) => (
-              <article key={serviceKey}>
-                <div className="flex items-baseline gap-3 sm:gap-4 mb-3 sm:mb-4">
-                  <span className="text-xs sm:text-sm text-gray-400 font-mono">{t.services[serviceKey].number}</span>
-                  <h3 className="text-xl sm:text-2xl font-medium leading-snug">{t.services[serviceKey].title}</h3>
+          <div className="flex items-center gap-3 mb-4">
+            <Building2 size={22} aria-hidden="true" />
+            <h2 className="text-3xl sm:text-4xl font-light">{t.companies.title}</h2>
+          </div>
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mb-12">{t.companies.intro}</p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {t.companies.items.map((c) => (
+              <article key={c.name} className="p-6 sm:p-8 border border-gray-700 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <Sparkles size={18} className="text-gray-400" aria-hidden="true" />
+                  <h3 className="text-xl font-medium">{c.name}</h3>
                 </div>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed pl-7 sm:pl-10">
-                  {t.services[serviceKey].description}
-                </p>
+                <p className="text-sm text-gray-400 mb-4">{c.format} · {t.companies.price}</p>
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed">{c.desc}</p>
               </article>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-900 text-sm font-medium hover:bg-gray-200 transition-colors"
+            >
+              {t.companies.cta}
+              <ArrowRight size={16} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="py-16 sm:py-24 px-4 sm:px-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16">
+          <div className="lg:col-span-4">
+            <h2 className="text-3xl sm:text-4xl font-light mb-6">{t.about.title}</h2>
+            <ul className="space-y-2 text-sm text-gray-600">
+              {t.about.creds.map((c) => (
+                <li key={c} className="flex items-start gap-2">
+                  <Check size={16} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-8 space-y-5 text-base sm:text-lg text-gray-600 leading-relaxed">
+            {t.about.paragraphs.map((p) => <p key={p}>{p}</p>)}
+          </div>
+        </div>
+      </section>
+
+      {/* Method */}
+      <section className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-light mb-4">{t.method.title}</h2>
+          <p className="text-base sm:text-lg text-gray-600 mb-10">{t.method.intro}</p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {t.method.items.map((m, i) => (
+              <div key={m.name}>
+                <span className="text-sm text-gray-400 font-mono">0{i + 1}</span>
+                <h3 className="text-xl font-medium mt-1 mb-2">{m.name}</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{m.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* My Approach */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 sm:gap-16">
-            <div className="lg:col-span-4">
-              <h2 className="text-3xl sm:text-4xl font-light mb-6">{t.approach.title}</h2>
-            </div>
-            <div className="lg:col-span-8">
-              <div className="space-y-6 sm:space-y-8">
-                <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                  {t.approach.intro}
-                </p>
-                
-                <div className="space-y-5 sm:space-y-6">
-                  {['people', 'processes', 'technology'].map((key) => (
-                    <div key={key}>
-                      <h3 className="text-lg sm:text-xl font-medium mb-2">{t.approach[key].title}</h3>
-                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                        {t.approach[key].description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                
-                <p className="text-base sm:text-lg text-gray-600 leading-relaxed pt-4">
-                  {t.approach.conclusion}
-                </p>
-              </div>
-            </div>
+      {/* Contact / booking */}
+      <section id="contact" className="py-16 sm:py-24 px-4 sm:px-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16">
+          <div className="lg:col-span-7">
+            <h2 className="text-3xl sm:text-4xl font-light mb-4">{t.contact.title}</h2>
+            <p className="text-base sm:text-lg text-gray-600 mb-8">{t.contact.subtitle}</p>
+            <h3 className="text-sm font-medium uppercase tracking-widest text-gray-500 mb-4">{t.contact.expectTitle}</h3>
+            <ul className="space-y-2 mb-10 text-gray-700">
+              {t.contact.expect.map((e) => (
+                <li key={e} className="flex items-start gap-2">
+                  <Check size={18} className="mt-0.5 flex-shrink-0" aria-hidden="true" />
+                  <span>{e}</span>
+                </li>
+              ))}
+            </ul>
+            <BookButton className="w-full sm:w-auto">{t.contact.cta}</BookButton>
           </div>
-        </div>
-      </section>
 
-      {/* Blog Section */}
-      <section id="blog" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4">{t.blog.title}</h2>
-            <p className="text-gray-600 text-base sm:text-lg">{t.blog.subtitle}</p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
-            {t.blog.posts.map((post, i) => (
-              <article key={i} className="group cursor-pointer">
-                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4 text-xs sm:text-sm text-gray-500">
-                  <span className="px-2 sm:px-3 py-1 bg-white border border-gray-200 text-gray-700 text-xs font-medium">
-                    {post.category}
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <Clock size={14} aria-hidden="true" />
-                    <span>{post.readTime}</span>
+          <div className="lg:col-span-5">
+            <h3 className="text-lg font-medium mb-4">{t.contact.other}</h3>
+            <address className="space-y-3 not-italic">
+              {[
+                { href: LINKEDIN_URL, icon: Linkedin, label: t.contact.linkedin, value: 'linkedin.com/in/jose-algara', ext: true },
+                { href: `mailto:${EMAIL}`, icon: Mail, label: t.contact.email, value: EMAIL },
+                { href: 'tel:+12062456474', icon: Phone, label: t.contact.phone, value: '+1 206-245-6474' },
+              ].map(({ href, icon: Icon, label, value, ext }) => (
+                <a
+                  key={label}
+                  href={href}
+                  {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+                >
+                  <Icon className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
+                  <div className="min-w-0">
+                    <div className="text-xs text-gray-500">{label}</div>
+                    <div className="text-sm sm:text-base font-medium break-all">{value}</div>
                   </div>
-                </div>
-                <h3 className="text-lg sm:text-xl font-medium mb-2 sm:mb-3 group-hover:text-gray-600 transition-colors leading-snug">
-                  {post.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed mb-3 sm:mb-4 text-xs sm:text-sm">
-                  {post.excerpt}
-                </p>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
-                  <Calendar size={14} aria-hidden="true" />
-                  <time>{post.date}</time>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="text-center mt-12 sm:mt-16">
-            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-gray-300 text-sm font-medium hover:border-gray-400 transition-colors">
-              {t.blog.viewAll}
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <blockquote className="text-2xl sm:text-3xl font-light leading-relaxed text-gray-700 italic">
-            "{t.testimonial}"
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section id="contact" className="py-16 sm:py-24 px-4 sm:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-light mb-4 sm:mb-6">{t.contact.title}</h2>
-            <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
-              {t.contact.subtitle}
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-8 sm:gap-16">
-            <div className="lg:col-span-7">
-              <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8">
-                <h3 className="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">{t.contact.bookConsultation}</h3>
-                
-                <div className="space-y-4 sm:space-y-6">
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    {t.contact.bookDescription}
-                  </p>
-                  
-                  <a 
-                    href="https://calendly.com/jose-algara/30min" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block w-full px-6 sm:px-8 py-3 sm:py-4 bg-black text-white text-center text-sm font-medium hover:bg-gray-800 transition-colors"
-                  >
-                    {t.contact.scheduleCTA}
-                  </a>
-
-                  <p className="text-xs sm:text-sm text-gray-500 text-center">
-                    {t.contact.sessionNote}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="space-y-6 sm:space-y-8">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-medium mb-4 sm:mb-6">{t.contact.otherWays}</h3>
-                  
-                  <address className="space-y-3 sm:space-y-4 not-italic">
-                    <a 
-                      href="https://www.linkedin.com/in/jose-algara/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 sm:p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
-                    >
-                      <Linkedin className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
-                      <div>
-                        <div className="text-xs sm:text-sm text-gray-500">{t.contact.linkedin}</div>
-                        <div className="text-sm sm:text-base font-medium group-hover:text-gray-600">{t.contact.connectWithMe}</div>
-                      </div>
-                    </a>
-
-                    <a 
-                      href="mailto:jose.algara@gmail.com"
-                      className="flex items-center gap-3 p-3 sm:p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
-                    >
-                      <Mail className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
-                      <div>
-                        <div className="text-xs sm:text-sm text-gray-500">{t.contact.email}</div>
-                        <div className="text-sm sm:text-base font-medium group-hover:text-gray-600">jose.algara@gmail.com</div>
-                      </div>
-                    </a>
-
-                    <a 
-                      href="tel:+12062456474"
-                      className="flex items-center gap-3 p-3 sm:p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
-                    >
-                      <Phone className="text-gray-400 group-hover:text-gray-600 flex-shrink-0" size={18} aria-hidden="true" />
-                      <div>
-                        <div className="text-xs sm:text-sm text-gray-500">{t.contact.phone}</div>
-                        <div className="text-sm sm:text-base font-medium group-hover:text-gray-600">206-245-6474</div>
-                      </div>
-                    </a>
-                  </address>
-                </div>
-
-                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 sm:p-6">
-                  <h4 className="text-sm sm:text-base font-medium mb-2 sm:mb-3">{t.contact.whatToExpect}</h4>
-                  <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-600">
-                    {t.contact.expectations.map((expectation, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
-                        <span>{expectation}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
+                </a>
+              ))}
+            </address>
           </div>
         </div>
       </section>
@@ -682,14 +524,10 @@ export default function Page() {
       {/* Footer */}
       <footer className="py-8 sm:py-12 px-4 sm:px-8 border-t border-gray-100">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-gray-500">
-          <div>{t.footer.copyright}</div>
+          <div>© {new Date().getFullYear()} {t.footer.rights}</div>
           <div className="flex gap-6 sm:gap-8">
-            <a href="https://www.linkedin.com/in/jose-algara/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">
-              {t.footer.linkedin}
-            </a>
-            <a href="mailto:jose.algara@gmail.com" className="hover:text-gray-900 transition-colors">
-              {t.footer.email}
-            </a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">LinkedIn</a>
+            <a href={`mailto:${EMAIL}`} className="hover:text-gray-900 transition-colors">{t.contact.email}</a>
           </div>
         </div>
       </footer>
