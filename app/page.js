@@ -58,7 +58,6 @@ const translations = {
           desc: 'Para gerentes y directores que lideran equipos mientras la IA cambia cómo trabajan. Incluye acceso por mensaje entre sesiones.',
         },
       ],
-      single: '¿Solo necesitas resolver un tema puntual? Reserva una sesión individual por USD 250.',
     },
     companies: {
       title: 'Para empresas: escala tu organización con IA',
@@ -159,7 +158,6 @@ const translations = {
           desc: 'For managers and directors leading teams while AI changes how they work. Includes messaging access between sessions.',
         },
       ],
-      single: 'Just need help with one specific topic? Book a single session for USD 250.',
     },
     companies: {
       title: 'For companies: scale your organization with AI',
@@ -400,8 +398,7 @@ export default function Page() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm sm:text-base text-gray-600">{t.offers.single}</p>
-          <div className="mt-8">
+          <div className="mt-10">
             <BookButton className="w-full sm:w-auto">{t.offers.book}</BookButton>
           </div>
         </div>
