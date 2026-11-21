@@ -17,7 +17,7 @@ const translations = {
     hero: {
       eyebrow: 'Coaching de carrera y transformación con IA',
       title: 'Haz crecer a tu gente y a tu organización en la era de la IA',
-      subtitle: 'Soy Jose Algara. Aprendí a escalar en empresas tech como Amazon y llevé esos aprendizajes a empresas tradicionales como Maersk y Nordstrom, donde hoy lidero la transformación de producto hacia un modelo nativo de IA. Ahora ayudo a profesionales y a empresas a crecer con la IA de su lado.',
+      subtitle: 'Hola, soy Jose Algara. Llevo más de veinte años transformando cómo las compañías adoptan y desarrollan nuevas tecnologías para ser más eficientes. En Maersk integramos toda la operación global en una sola plataforma digital. En Nordstrom transformamos cómo nuestros productos llegan a los clientes, donde estén, de forma eficiente y con poca intervención humana en las decisiones. De esa experiencia nació mi framework para que las organizaciones adopten nuevas tecnologías con el uso de IA.',
       cta1: 'Reserva tu sesión gratis de 30 minutos',
       cta2: 'Coaching para tu empresa',
       proof: ['20+ años liderando transformación', 'Equipos de 300 personas desde cero', '2 empresas fundadas en Latinoamérica'],
@@ -118,7 +118,7 @@ const translations = {
     hero: {
       eyebrow: 'Career coaching and AI transformation',
       title: 'Grow your people and your organization in the age of AI',
-      subtitle: "I'm Jose Algara. I learned to scale at tech companies like Amazon and brought those lessons to traditional companies like Maersk and Nordstrom, where I lead the product organization's shift to an AI-native operating model. Now I help professionals and companies grow with AI on their side.",
+      subtitle: "Hi, I'm Jose Algara. For more than twenty years I've been transforming how companies adopt and build new technologies to become more efficient. At Maersk we integrated the entire global operation into a single digital platform. At Nordstrom we transformed how our products reach customers wherever they are, efficiently and with little human intervention in decisions. From that experience I built a framework that helps organizations adopt new technologies using AI.",
       cta1: 'Book your free 30-minute session',
       cta2: 'Coaching for your company',
       proof: ['20+ years leading transformation', 'Built 300-person teams from zero', 'Founded 2 companies in Latin America'],
