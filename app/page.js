@@ -82,7 +82,7 @@ const translations = {
       paragraphs: [
         'Soy ingeniero mecatrónico del Tec de Monterrey y tengo un MBA del IE Business School en Madrid. Empecé emprendiendo: cofundé Linio en México y dirigí Easy Taxi en 7 países de Latinoamérica, con un equipo de 350 personas.',
         'Después lideré producto y tecnología en Amazon, Maersk y Flexport. En Amazon construí un equipo de 300 personas desde cero, y en Maersk integré organizaciones en adquisiciones por más de USD 6 mil millones.',
-        'Lo que más me define es llevar lo aprendido en empresas tech a empresas que no lo son. Hoy, como VP en Nordstrom, lidero la transición de la organización de producto a un modelo nativo de IA, con agentes de IA en producción.',
+        'Lo que más me define es llevar lo aprendido en empresas tech a empresas que no lo son. Hoy, como VP en Nordstrom, impulso cómo la compañía adopta un modelo nativo de IA para desarrollar y adoptar nuevas tecnologías.',
       ],
       creds: ['MBA, IE Business School', 'Ingeniería Mecatrónica, Tec de Monterrey', 'Certificación PMP', '4 patentes en EE. UU.'],
     },
@@ -182,7 +182,7 @@ const translations = {
       paragraphs: [
         "I'm a mechatronics engineer from Tec de Monterrey with an MBA from IE Business School in Madrid. I started as an entrepreneur: I co-founded Linio in Mexico and ran Easy Taxi across 7 Latin American countries with a 350-person team.",
         'Then I led product and technology at Amazon, Maersk and Flexport. At Amazon I built a 300-person organization from zero, and at Maersk I integrated organizations across more than USD 6 billion in acquisitions.',
-        "What defines me most is bringing what I learned at tech companies to companies that aren't. Today, as a VP at Nordstrom, I lead the product organization's shift to an AI-native operating model, with AI agents in production.",
+        "What defines me most is bringing what I learned at tech companies to companies that aren't. Today, as a VP at Nordstrom, I help drive how the company is adopting an AI-native model to build and adopt new technologies.",
       ],
       creds: ['MBA, IE Business School', 'Mechatronics Engineering, Tec de Monterrey', 'PMP certified', '4 U.S. patents'],
     },
